@@ -3,10 +3,10 @@ package de.mide.restapidemo.rest1;
 
 import java.util.Date;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Diese REST-Controller-Klasse ist für URLs, die mit {@code /rest1} anfangen, zuständig.
  * Die enthaltenen REST-Methoden erwarten keine Parameter und zeigen verschiedene
  * Möglichkeiten Daten zurückzugeben.
+ * Alle Methoden geben die aktuelle Systemzeit (Datum + Uhrzeit) zurück, aber in unterschiedlichen Formaten.
  * <br><br>
  * 
  * This project is licensed under the terms of the BSD 3-Clause License.
@@ -49,7 +50,9 @@ public class DatumUndZeitRestController {
      * <br><br>
      * 
      * Bei lokaler Ausführung ist diese REST-Methode unter der folgenden URL verfügbar:
-     * <a href="http://localhost:8080/rest1/datumUndZeitAlsObjekt">http://localhost:8080/rest1/datumUndZeitAlsObjekt</a><br><br>
+     * <a href="http://localhost:8080/rest1/datumUndZeitAlsObjekt">http://localhost:8080/rest1/datumUndZeitAlsObjekt</a>
+     * <br><br>
+     * 
      * Es wird eine Instanz der Klasse {@link DatumUndZeitWrapper} erzeugt und zurückgegeben. Die Werte aller öffentlichen
      * Getter-Methoden dieses Objekts werden in den JSON-String gepackt. 
      *
@@ -70,10 +73,16 @@ public class DatumUndZeitRestController {
      * nämlich "202" (Accepted).  
      * Hierzu wird der Antwort-String in ein Objekt der Spring-spezifischen Klasse {@link ResponseEntity} verpackt; an diesem Objekt 
      * kann ein spezieller HTTP-Status-Code gesetzt werden sowie bei Bedarf auch bestimmte HTTP-Response-Header.
+     * Diese HTTP-Response-Header bekommen in diesem Beispiel das Prefix "X-", weil sie nur zum Testen sind, siehe auch
+     * <a href="https://stackoverflow.com/a/51500375/1364368" target="_blank">diese Antwort auf <i>stackoverflow.com</i></a>.
      * <br><br>
      * 
      * Bei lokaler Ausführung ist diese REST-Methode unter der folgenden URL verfügbar:
-     * <a href="http://localhost:8080/rest1/datumUndZeitMitResponseEntity">http://localhost:8080/rest1/datumUndZeitMitResponseEntity</a><br><br>
+     * <a href="http://localhost:8080/rest1/datumUndZeitMitResponseEntity">http://localhost:8080/rest1/datumUndZeitMitResponseEntity</a>
+     * <br><br>
+     * 
+     * Den Status-Code und die eigenen HTTP-Response-Header für einen HTTP-Request zu dieser URL kann man z.B. im Firefox-Browser über 
+     * "Tools | Web Developer | Network" anschauen.
      * 
      * @return  Objekt mit HTTP-Response-Antwort und HTTP-Status-Code 202 (Accepted).
      */
@@ -83,8 +92,12 @@ public class DatumUndZeitRestController {
         Date heuteDate = new Date();
 
         String heuteDatumString = heuteDate.toString();
+        
+        HttpHeaders eigeneResponseHeader = new HttpHeaders();
+        eigeneResponseHeader.set("X-Generator", "RestController");
+        eigeneResponseHeader.set("X-Framework", "Spring Boot"   );
                   
-        return new ResponseEntity<String>(heuteDatumString, HttpStatus.ACCEPTED);
+        return new ResponseEntity<String>(heuteDatumString, eigeneResponseHeader, HttpStatus.ACCEPTED);
     }
         
 }
