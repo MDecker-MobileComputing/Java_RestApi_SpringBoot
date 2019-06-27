@@ -3,7 +3,10 @@ package de.mide.restapidemo.rest1;
 
 import java.util.Date;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +26,8 @@ public class DatumUndZeitRestController {
 
     /**
      * REST-Methode, die aktuelles Datum+Zeit als String zurückgibt.
-     * <br>
+     * <br><br>
+     * 
      * Bei lokaler Ausführung ist diese REST-Methode unter der folgenden URL verfügbar:
      * <a href="http://localhost:8080/rest1/datumUndZeitAlsString">http://localhost:8080/rest1/datumUndZeitAlsString</a>
      *
@@ -42,7 +46,8 @@ public class DatumUndZeitRestController {
 
     /**
      * REST-Methode, die aktuelles Datum+Zeit als (JSON-)Objekt zurückgibt.
-     * <br>
+     * <br><br>
+     * 
      * Bei lokaler Ausführung ist diese REST-Methode unter der folgenden URL verfügbar:
      * <a href="http://localhost:8080/rest1/datumUndZeitAlsObjekt">http://localhost:8080/rest1/datumUndZeitAlsObjekt</a><br><br>
      * Es wird eine Instanz der Klasse {@link DatumUndZeitWrapper} erzeugt und zurückgegeben. Die Werte aller öffentlichen
@@ -57,6 +62,29 @@ public class DatumUndZeitRestController {
         DatumUndZeitWrapper datumUndZeit = new DatumUndZeitWrapper();
 
         return datumUndZeit;
+    }
+    
+    
+    /**
+     * Rest-Methode, die aktuelles Datum+Zeit als String zurückgibt mit bestimmten <a href="https://httpstatuses.com/">HTTP-Status-Code</a>, 
+     * nämlich "202" (Accepted).  
+     * Hierzu wird der Antwort-String in ein Objekt der Spring-spezifischen Klasse {@link ResponseEntity} verpackt; an diesem Objekt 
+     * kann ein spezieller HTTP-Status-Code gesetzt werden sowie bei Bedarf auch bestimmte HTTP-Response-Header.
+     * <br><br>
+     * 
+     * Bei lokaler Ausführung ist diese REST-Methode unter der folgenden URL verfügbar:
+     * <a href="http://localhost:8080/rest1/datumUndZeitMitResponseEntity">http://localhost:8080/rest1/datumUndZeitMitResponseEntity</a><br><br>
+     * 
+     * @return  Objekt mit HTTP-Response-Antwort und HTTP-Status-Code 202 (Accepted).
+     */
+    @RequestMapping(value = "/datumUndZeitMitResponseEntity", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity<String> datumUndZeitMitResponseEntity() {
+        
+        Date heuteDate = new Date();
+
+        String heuteDatumString = heuteDate.toString();
+                  
+        return new ResponseEntity<String>(heuteDatumString, HttpStatus.ACCEPTED);
     }
         
 }
