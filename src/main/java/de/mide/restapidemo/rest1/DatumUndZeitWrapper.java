@@ -1,4 +1,4 @@
-package de.mide.restapidemo.rest;
+package de.mide.restapidemo.rest1;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

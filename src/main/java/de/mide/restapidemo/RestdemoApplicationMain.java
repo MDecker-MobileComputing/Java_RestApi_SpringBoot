@@ -10,10 +10,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * This project is licensed under the terms of the BSD 3-Clause License.
  */
 @SpringBootApplication
-public class RestdemoApplication {
+public class RestdemoApplicationMain {
 
 	public static void main(String[] args) {
-		SpringApplication.run(RestdemoApplication.class, args);
+	    
+		SpringApplication.run(RestdemoApplicationMain.class, args);
 	}
 
 }
