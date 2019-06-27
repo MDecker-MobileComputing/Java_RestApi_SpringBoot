@@ -44,9 +44,12 @@ public class DatumUndZeitRestController {
      * REST-Methode, die aktuelles Datum+Zeit als (JSON-)Objekt zurückgibt.
      * <br>
      * Bei lokaler Ausführung ist diese REST-Methode unter der folgenden URL verfügbar:
-     * <a href="http://localhost:8080/rest1/datumUndZeitAlsString">http://localhost:8080/rest1/datumUndZeitAlsObjekt</a>
+     * <a href="http://localhost:8080/rest1/datumUndZeitAlsObjekt">http://localhost:8080/rest1/datumUndZeitAlsObjekt</a><br><br>
+     * Es wird eine Instanz der Klasse {@link DatumUndZeitWrapper} erzeugt und zurückgegeben. Die Werte aller öffentlichen
+     * Getter-Methoden dieses Objekts werden in den JSON-String gepackt. 
      *
      * @return  Objekt, das (nach Serialisierung in das JSON-Format) an den Client zurückgeschickt wird.
+     *          Beispiel-JSON-String: <pre>{"datum":"27.06.2019","zeit":"11:03"}</pre> 
      */
     @RequestMapping(value = "/datumUndZeitAlsObjekt", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public DatumUndZeitWrapper datumUndZeitAlsObjekt() {
