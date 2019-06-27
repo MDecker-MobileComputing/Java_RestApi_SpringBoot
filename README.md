@@ -10,9 +10,9 @@ This repository contains a small [Spring Boot](https://spring.io/projects/spring
 
 To start the application (i.e. to start the web server) you have several options:
 
-* On the command line:
+* On the command line (you need to have installed [Apache Maven](https://maven.apache.org/index.html)):
 
-     * Run script `maven_run.bat` in Windows cmd.exe ("DOS-Box")
+     * Run script `maven_run.bat` in Window's *cmd.exe* ("DOS Box").
 
      * Enter the following command:
        > mvn spring-boot:run
@@ -24,7 +24,15 @@ To start the application (i.e. to start the web server) you have several options
   ![Screenshot showing Run Configuration in Eclipse](screenshot_eclipse_1.png)
 
 <br>      
+
+----
+
+# JavaDoc
+
+Execute script `maven_javadoc.bat` in Window's *cmd.exe*; the output files are written to folder `target/site/apidocs`.
 	 
+<br>
+
 ----
 # License
 

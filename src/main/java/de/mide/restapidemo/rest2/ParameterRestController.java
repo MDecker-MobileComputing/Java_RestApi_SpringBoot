@@ -24,7 +24,7 @@ public class ParameterRestController {
      * REST-Methode zur Berechnung der Summe von zwei Zahlen.<br>
      *  
      * Bei lokaler Ausführung ist diese REST-Methode unter der folgenden URL verfügbar:
-     * <a href="http://localhost:8080/rest2/addieren?zahl1=123&zahl2=234">http://localhost:8080/rest2/addieren?zahl1=123&zahl2=234</a><br><br>
+     * <a href="http://localhost:8080/rest2/addieren?zahl1=123&amp;zahl2=234">http://localhost:8080/rest2/addieren?zahl1=123&amp;zahl2=234</a><br><br>
      * 
      * Beide URL-Parameter sind Pflicht-Parameter, es wird also eine Exception geworfen, wenn einer vergessen wird; weiter müssen
      * beide Parameter auch gültige int-Werte sein.
@@ -48,7 +48,7 @@ public class ParameterRestController {
     /**
      * REST-Methode zur Berechnung der Differenz von zwei Zahlen.
      * Bei lokaler Ausführung ist diese REST-Methode unter der folgenden URL verfügbar:
-     * <a href="http://localhost:8080/rest/subtrahieren/150/minus/25">http://localhost:8080/rest2/subtrahieren/150/minus/25</a><br><br>
+     * <a href="http://localhost:8080/rest2/subtrahieren/150/minus/25">http://localhost:8080/rest2/subtrahieren/150/minus/25</a><br><br>
      * 
      * @param zahl1  Zahl, von der {@code zahl2} abgezogen wird. 
      * 
