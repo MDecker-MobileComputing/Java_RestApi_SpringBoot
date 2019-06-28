@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
  * Ein POST-Request anstelle eines GET-Requests sollte immer dann verwendet werden, wenn (Business-)Daten vom
  * REST-Service gespeichert werden müssen.
  * Im Gegensatz zu einem GET-Request kann ein POST-Request nicht einfach durch Eingabe einer URL in den
- * Web-Browser abgesetzt werden; es wird dafür z.B. ein Browser-Plugin wie z.B.
- * <a href="https://restlet.com/modules/client/" target="_blank">Restlet</a> für Chrome benötigt.
+ * Web-Browser abgesetzt werden; es wird dafür z.B. eine Browser-Erweiterung wie z.B.
+ * <a href="https://restlet.com/modules/client/" target="_blank">Restlet</a> für Chrome benötigt (siehe 
+ * <a href="https://github.com/MDecker-MobileComputing/Java_RestApi_SpringBoot/wiki/POST-Requests" target="_blank">diese Wiki-Seite</a>
+ * für die Verwendung dieser Browser-Erweiterung zum Aufruf der REST-Methode {@link #datenViaPostRequestEmpfangen(String)}).
  * <br><br>
  * 
  * This project is licensed under the terms of the BSD 3-Clause License.
@@ -33,7 +35,7 @@ public class RestControllerFuerPostRequest {
      * aber für dieses Beispiel schreiben wir die Daten nur auf den Logger.
      * 
      * Bei lokaler Ausführung ist diese REST-Methode unter der folgenden URL verfügbar:
-     * <a target="_blank" href="http://localhost:8080/rest3/datenViaPostRequestEmpfangen">http://localhost:8080/rest3/datenViaPostRequestEmpfangent</a> 
+     * <a target="_blank" href="http://localhost:8080/rest3/datenViaPostRequestEmpfangen">http://localhost:8080/rest3/datenViaPostRequestEmpfangen</a> 
      * 
      * @param payloadString  Vom Client geschickte Nutzdaten, werden einfach auf Logger geschrieben.
      * 
