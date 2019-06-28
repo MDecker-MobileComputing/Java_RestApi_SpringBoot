@@ -7,9 +7,8 @@ import java.util.Date;
 /**
  * Ein Objekt dieser Klasse soll von einer REST-Methode zurückgegeben werden und kapselt ein  {@link Date}-Objekt. 
  * Dabei werden die Rückgabe-Werte aller öffentlichen Methoden in einen JSON-String serialisiert.
- * Der Name für den JSON-Key wird aus dem Namen der Getter-Methode abgelegt; z.B. würde
- * der Rückgabewert einer Getter-Methode mit Namen {@code getAbc()} unter dem Key "abc" in den
- * JSON-String gepackt.
+ * Der Name für den JSON-Key wird aus dem Namen der Getter-Methode abgelegt; z.B. würde der Rückgabewert 
+ * einer Getter-Methode mit Namen {@code getAbc()} unter dem Key "abc" in den JSON-String gepackt. 
  * <br><br>
  * 
  * This project is licensed under the terms of the BSD 3-Clause License.
@@ -31,7 +30,7 @@ public class DatumUndZeitWrapper {
      */
     public DatumUndZeitWrapper() {
         
-        _date = new Date();
+        this ( new Date() );
     }
     
 

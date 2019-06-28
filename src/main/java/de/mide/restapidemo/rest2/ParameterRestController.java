@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Diese REST-Controller-Klasse ist für URLs, die mit {@code /rest2} anfangen, zuständig.
- * Es werden verschiedene Möglichkeiten für die Übergaben von Daten beim Aufruf einer
+ * Es werden verschiedene Möglichkeiten für die Übergabe von Daten beim Aufruf einer
  * REST-Methode gezeigt, nämlich URL- und Pfad-Parameter.
  * <br><br>
  * 
@@ -30,9 +30,9 @@ public class ParameterRestController {
      * Beide URL-Parameter sind Pflicht-Parameter, es wird also eine Exception geworfen, wenn einer vergessen wird; weiter müssen
      * beide Parameter auch gültige int-Werte sein.
      * 
-     * @param zahl1  Erster Summand
+     * @param zahl1  Erster  Summand (Pflichtparameter).
      * 
-     * @param zahl2  Zweiter Summand
+     * @param zahl2  Zweiter Summand (Pflichtparameter).
      * 
      * @return  Summe der beiden als URL-Parameter übergebenen Zahlen als String, z.B. "Summe=123".
      */
@@ -53,9 +53,9 @@ public class ParameterRestController {
      * Bei lokaler Ausführung ist diese REST-Methode unter der folgenden URL verfügbar:
      * <a href="http://localhost:8080/rest2/subtrahieren/150/minus/25">http://localhost:8080/rest2/subtrahieren/150/minus/25</a><br><br>
      * 
-     * @param zahl1  Zahl, von der {@code zahl2} abgezogen wird (Minuend).
+     * @param zahl1  Zahl (Pflichtparameter), von der {@code zahl2} abgezogen wird (Minuend).
      * 
-     * @param zahl2  Zahl, die von {@code zahl1} abgezogen wird (Subtrahend).
+     * @param zahl2  Zahl (Pflichtparameter), die von {@code zahl1} abgezogen wird (Subtrahend).
      * 
      * @return  Differenz der beiden als Pfad-Parameter übergebenen Zahlen als String, z.B. "Differenz=99".
      */

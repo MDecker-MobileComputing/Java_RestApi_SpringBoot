@@ -18,7 +18,7 @@ To start the application (i.e. to start the web server) you have several options
 
      * Run script `maven_run.bat` in Window's *cmd.exe* ("DOS Box").
 
-     * Enter the following command (starts goal `run` of plugin `spring-boot`)
+     * Enter the following command (starts goal `run` of plugin `spring-boot`):
        > mvn spring-boot:run
 
   <br>
