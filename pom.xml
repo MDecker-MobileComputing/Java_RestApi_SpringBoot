@@ -12,7 +12,7 @@
 	<groupId>de.mide</groupId>
 	<artifactId>restapidemo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>REST-API Demo (mit Spring Boot)</name>
+	<name>REST-API Demo mit Spring Boot</name>
 	<description>Demo project for REST-API</description>
 
 	<properties>
