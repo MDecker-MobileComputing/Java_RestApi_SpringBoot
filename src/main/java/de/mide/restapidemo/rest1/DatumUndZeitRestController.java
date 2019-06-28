@@ -73,8 +73,6 @@ public class DatumUndZeitRestController {
      * nämlich "202" (Accepted).  
      * Hierzu wird der Antwort-String in ein Objekt der Spring-spezifischen Klasse {@link ResponseEntity} verpackt; an diesem Objekt 
      * kann ein spezieller HTTP-Status-Code gesetzt werden sowie bei Bedarf auch bestimmte HTTP-Response-Header.
-     * Diese HTTP-Response-Header bekommen in diesem Beispiel das Prefix "X-", weil sie nur zum Testen sind, siehe auch
-     * <a href="https://stackoverflow.com/a/51500375/1364368" target="_blank">diese Antwort auf <i>stackoverflow.com</i></a>.
      * <br><br>
      * 
      * Bei lokaler Ausführung ist diese REST-Methode unter der folgenden URL verfügbar:
@@ -82,7 +80,8 @@ public class DatumUndZeitRestController {
      * <br><br>
      * 
      * Den Status-Code und die eigenen HTTP-Response-Header für einen HTTP-Request zu dieser URL kann man z.B. im Firefox-Browser über 
-     * "Tools | Web Developer | Network" anschauen.
+     * "Tools | Web Developer | Network" anschauen, siehe auch 
+     * <a target="_blank" href="https://github.com/MDecker-MobileComputing/Java_RestApi_SpringBoot/wiki/HTTP-Response-Header-setzen">diese Wiki-Seite (mit Screenshot)</a>.
      * 
      * @return  Objekt mit HTTP-Response-Antwort und HTTP-Status-Code 202 (Accepted).
      */
@@ -94,8 +93,8 @@ public class DatumUndZeitRestController {
         String heuteDatumString = heuteDate.toString();
         
         HttpHeaders eigeneResponseHeader = new HttpHeaders();
-        eigeneResponseHeader.set("X-Generator", "RestController");
-        eigeneResponseHeader.set("X-Framework", "Spring Boot"   );
+        eigeneResponseHeader.set("Server"       , "Spring Boot RestController");
+        eigeneResponseHeader.set("Cache-Control", "no-cache"                  );
                   
         return new ResponseEntity<String>(heuteDatumString, eigeneResponseHeader, HttpStatus.ACCEPTED);
     }

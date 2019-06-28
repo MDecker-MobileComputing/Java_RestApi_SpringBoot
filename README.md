@@ -4,6 +4,10 @@ This repository contains a small [Spring Boot](https://spring.io/projects/spring
 
 <br>
 
+Additional information concerning this application can be found on [the Wiki pages for this repository](https://github.com/MDecker-MobileComputing/Java_RestApi_SpringBoot/wiki), but these pages are in German only.
+
+<br>
+
 ----
 
 # Running the application
