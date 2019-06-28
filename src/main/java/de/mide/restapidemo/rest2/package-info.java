@@ -1,6 +1,6 @@
 /**
  * Dieses Paket enthält eine {@link RestController}-Klasse, die verschiedene Möglichkeiten zeigt, wie eine REST-Methode Parameter übergeben bekommen kann.
- * <br><br>
+ * <br><br><br>
  * 
  * This project is licensed under the terms of the BSD 3-Clause License.
  */
