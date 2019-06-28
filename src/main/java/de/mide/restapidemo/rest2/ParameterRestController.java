@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Diese REST-Controller-Klasse ist für URLs, die mit {@code /rest2} anfangen, zuständig.
  * Es werden verschiedene Möglichkeiten für die Übergaben von Daten beim Aufruf einer
- * REST-Methode gezeigt.
+ * REST-Methode gezeigt, nämlich URL- und Pfad-Parameter.
  * <br><br>
  * 
  * This project is licensed under the terms of the BSD 3-Clause License.
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ParameterRestController {
 
     /**
-     * REST-Methode zur Berechnung der Summe von zwei Zahlen.<br>
+     * REST-Methode zur Berechnung der Summe von zwei Zahlen, welche als URL-Parameter übergeben werden.<br>
      * <br><br>
      * 
      * Bei lokaler Ausführung ist diese REST-Methode unter der folgenden URL verfügbar:
@@ -53,11 +53,11 @@ public class ParameterRestController {
      * Bei lokaler Ausführung ist diese REST-Methode unter der folgenden URL verfügbar:
      * <a href="http://localhost:8080/rest2/subtrahieren/150/minus/25">http://localhost:8080/rest2/subtrahieren/150/minus/25</a><br><br>
      * 
-     * @param zahl1  Zahl, von der {@code zahl2} abgezogen wird. 
+     * @param zahl1  Zahl, von der {@code zahl2} abgezogen wird (Minuend).
      * 
-     * @param zahl2  Zahl, die von {@code zahl1} abgezogen wird.
+     * @param zahl2  Zahl, die von {@code zahl1} abgezogen wird (Subtrahend).
      * 
-     * @return  Differenz der beiden als Pfad-Parameter übergebenen Zahle als String, z.B. "Differenz=99".
+     * @return  Differenz der beiden als Pfad-Parameter übergebenen Zahlen als String, z.B. "Differenz=99".
      */
     @RequestMapping(path="/subtrahieren/{zahl1}/minus/{zahl2}")
     public String subtrahieren( @PathVariable(value="zahl1") int zahl1,

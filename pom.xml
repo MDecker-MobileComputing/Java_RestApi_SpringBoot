@@ -13,7 +13,7 @@
 	<artifactId>restapidemo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>REST-API Demo mit Spring Boot</name>
-	<description>Demo project for REST-API</description>
+	<description>Demo-Projekt für REST-API mit Framework "Spring Boot"</description>
 
 	<properties>
 		<java.version>1.8</java.version>
