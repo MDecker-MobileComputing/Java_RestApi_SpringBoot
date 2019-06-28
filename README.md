@@ -18,14 +18,13 @@ To start the application (i.e. to start the web server) you have several options
 
      * Run script `maven_run.bat` in Window's *cmd.exe* ("DOS Box").
 
-     * Enter the following command:
+     * Enter the following command (starts goal `run` of plugin `spring-boot`)
        > mvn spring-boot:run
 
   <br>
 
-* In [Eclipse](https://www.eclipse.org/downloads/packages/) you can use a run configuration:
-
-  ![Screenshot showing Run Configuration in Eclipse](screenshot_eclipse_1.png)
+See [this page in the Wiki for this repository](https://github.com/MDecker-MobileComputing/Java_RestApi_SpringBoot/wiki/Maven-in-Eclipse)
+on how to define a *Run Configuration* for running Maven goal `spring-boot:run` in **Eclipse IDE**.
 
 <br>      
 
