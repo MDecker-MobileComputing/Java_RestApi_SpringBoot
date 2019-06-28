@@ -1,7 +1,12 @@
 package de.mide.restapidemo.rest1;
 
 
+
 import java.util.Date;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -10,6 +15,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 
 /**
@@ -24,7 +33,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/rest1")
 public class DatumUndZeitRestController {
+    
+    
+    /** Log-Objekt, auf das nur Methoden aus dieser Klasse schreiben dürfen. */
+    private static final Logger LOGGER = LoggerFactory.getLogger( DatumUndZeitRestController.class );
 
+    
+    /** 
+     * <a href="https://github.com/FasterXML/jackson" target="_blank">Jackson</a>-Serialisierer-Objekt 
+     * um Java-Objekte in JSON-Strings umzuwandenln.
+     * Das Objekt wird erst bei Bedarf in der jeweiligen REST-Methode erzeugt.
+     */
+    protected ObjectMapper _jacksonSerializer = null;
+
+    
     /**
      * REST-Methode, die aktuelles Datum+Zeit als String zurückgibt.
      * <br><br>
@@ -46,7 +68,7 @@ public class DatumUndZeitRestController {
 
 
     /**
-     * REST-Methode, die aktuelles Datum+Zeit als (JSON-)Objekt zurückgibt.
+     * REST-Methode, die aktuelles Datum+Zeit als JSON-Objekt zurückgibt.
      * <br><br>
      * 
      * Bei lokaler Ausführung ist diese REST-Methode unter der folgenden URL verfügbar:
@@ -56,7 +78,7 @@ public class DatumUndZeitRestController {
      * Es wird eine Instanz der Klasse {@link DatumUndZeitWrapper} erzeugt und zurückgegeben. Die Werte aller öffentlichen
      * Getter-Methoden dieses Objekts werden in den JSON-String gepackt. 
      *
-     * @return  Objekt, das (nach Serialisierung in das JSON-Format) an den Client zurückgeschickt wird.
+     * @return  Nach JSON serialisierte Instanz von {@link DatumUndZeitWrapper}. 
      *          Beispiel-JSON-String: <pre>{"datum":"27.06.2019","zeit":"11:03"}</pre> 
      */
     @RequestMapping(value = "/datumUndZeitAlsObjekt", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -101,5 +123,49 @@ public class DatumUndZeitRestController {
                   
         return new ResponseEntity<String>(heuteDatumString, eigeneResponseHeader, HttpStatus.ACCEPTED);
     }
+    
+    
+    /**
+     * REST-Methode, die aktuelles Datum+Zeit als JSON-Objekt zurückgibt, wobei wie von Methode {@link #datumUndZeitMitResponseEntity()}
+     * ein bestimmter HTTP-Status-Code sowie HTTP-Response-Header gesetzt werden.
+     * <br><br>
+     * 
+     * Bei lokaler Ausführung ist diese REST-Methode unter der folgenden URL verfügbar:
+     * <a target="_blank" href="http://localhost:8080/rest1/datumUndZeitMitResponseEntityImJsonFormat">http://localhost:8080/rest1/datumUndZeitMitResponseEntityImJsonFormat</a>
+     * 
+     * @return  Nach JSON serialisierte Instanz von {@link DatumUndZeitWrapper}. 
+     *          Beispiel-JSON-String: <pre>{"datum":"27.06.2019","zeit":"11:03"}</pre><br>          
+     *          Wenn bei der Serialisierung eine Exception auftritt, dann wird der HTTP-Status-Code
+     *          <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500">500 (Internal Server Error</a>
+     *          zurückgegeben.
+     */
+    @RequestMapping(value = "/datumUndZeitMitResponseEntityImJsonFormat", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> datumUndZeitMitResponseEntityImJsonFormat() {
+
+        HttpHeaders eigeneResponseHeader = new HttpHeaders();
+        eigeneResponseHeader.set("Server"       , "Spring Boot RestController");
+        eigeneResponseHeader.set("Cache-Control", "no-cache"                  );
+        
+        if (_jacksonSerializer == null) {
+            _jacksonSerializer = new ObjectMapper();
+            _jacksonSerializer.enable(SerializationFeature.INDENT_OUTPUT); // "Pretty Printing" einschalten
+            
+            LOGGER.info("Jackson-Serialisierer erzeugt.");
+        }
+        
+        DatumUndZeitWrapper datumUndZeit = new DatumUndZeitWrapper();
+        
+        try {
+            String jsonResultString = _jacksonSerializer.writeValueAsString(datumUndZeit); 
+                              
+            return new ResponseEntity<String>(jsonResultString, eigeneResponseHeader, HttpStatus.ACCEPTED);
+        }
+        catch (JsonProcessingException ex) {
+            
+            LOGGER.error("Fehelr bei Serialisierung von Java-Objekt.", ex);
+            
+            return new ResponseEntity<String>(eigeneResponseHeader, HttpStatus.INTERNAL_SERVER_ERROR);
+        }        
+    }    
         
 }
