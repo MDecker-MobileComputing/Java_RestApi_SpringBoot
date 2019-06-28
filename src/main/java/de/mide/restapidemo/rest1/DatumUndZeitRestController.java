@@ -73,6 +73,9 @@ public class DatumUndZeitRestController {
      * nämlich "202" (Accepted).  
      * Hierzu wird der Antwort-String in ein Objekt der Spring-spezifischen Klasse {@link ResponseEntity} verpackt; an diesem Objekt 
      * kann ein spezieller HTTP-Status-Code gesetzt werden sowie bei Bedarf auch bestimmte HTTP-Response-Header.
+     * Im vorliegenden Beispiel werden die beiden HTTP-Response-Headers 
+     * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Server" target="_blank">"Server"</a> und
+     * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control" target="_blank">"Cache-Control"</a> gesetzt.
      * <br><br>
      * 
      * Bei lokaler Ausführung ist diese REST-Methode unter der folgenden URL verfügbar:
