@@ -5,3 +5,4 @@ mvn clean package
 @echo kann mit folgendem Befehl gestartet werden:
 @echo
 @echo    java -jar restapidemo-0.0.1-SNAPSHOT.jar gestartet
+
