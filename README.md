@@ -20,8 +20,15 @@ To start the application (i.e. to start the web server) you have several options
 
      * Enter the following command (starts goal `run` of plugin `spring-boot`):
        > mvn spring-boot:run
-
   <br>
+  
+You can also generate a so called **Fat Jar** by running script `mvn_package.bat`. 
+This should produce a file with suffix `jar` in folder `target/`.
+This file contains all required dependencies (that's why is called "fat") and can be executed by a command like the following one:
+
+    java -jar restapidemo-0.0.1-SNAPSHOT.jar
+
+<br>
 
 See [this page in the Wiki for this repository](https://github.com/MDecker-MobileComputing/Java_RestApi_SpringBoot/wiki/Maven-in-Eclipse)
 on how to define a *Run Configuration* for running Maven goal `spring-boot:run` in **Eclipse IDE**.
