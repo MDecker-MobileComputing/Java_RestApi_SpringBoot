@@ -35,9 +35,16 @@ public class RestControllerFuerPostRequest {
      * aber für dieses Beispiel schreiben wir die Daten nur auf den Logger.
      * 
      * Bei lokaler Ausführung ist diese REST-Methode unter der folgenden URL verfügbar:
-     * <a target="_blank" href="http://localhost:8080/rest3/datenViaPostRequestEmpfangen">http://localhost:8080/rest3/datenViaPostRequestEmpfangen</a> 
+     * <a target="_blank" href="http://localhost:8080/rest3/datenViaPostRequestEmpfangen">http://localhost:8080/rest3/datenViaPostRequestEmpfangen</a>
+     * <br><br>
      * 
-     * @param payloadString  Vom Client geschickte Nutzdaten, werden einfach auf Logger geschrieben.
+     * Da POST-Requests nicht direkt mit dem Browser erzeugt werden können, findet sich (bei lokaler Ausführung) unter der folgenden
+     * URL eine HTML-Seite mit einem Formular, mit der Daten an diese REST-Methode geschickt werden können:
+     * <a target="_blank" href="http://localhost:8080/index.html">http://localhost:8080/index.html</a><br>
+     * 
+     * @param payloadString  Vom Client geschickte Nutzdaten, werden einfach auf Logger geschrieben, bei Übertragung
+     *                       von Web-Formular mit <a target="_blank" href="https://www.w3schools.com/tags/ref_urlencode.asp">URL-Kodierung</a> 
+     *                       (d.h. Sonderzeichen wie Leerzeichen und Umlaute durch "+" bzw. Prozent-Codes ersetzt).
      * 
      * @return  String mit Erfolgsmeldung für Client, z.B. "Daten (18 Zeichen) empfangen.".
      */
