@@ -26,22 +26,23 @@
   <h1>Statische Homepage von Demo-Applikation "REST-API mit Spring Boot"</h1>
 
   <p>
-    Diese Datei ist im Verzeichnis <code>src/main/resources/static</code> abgelegt.
+    Diese HTML-Datei ist im Verzeichnis <code>src/main/resources/static</code> abgelegt.
     Änderungen der Dateien in diesem Verzeichnis werden u.U. erst nach einem Neustart wirksam.
   </p>
 
 
   <h2>REST-API-Methoden (HTTP-GET)</h2>
+
+  <p>REST-API-Methoden in Klasse <code>DatumUndZeitRestController</code> von Paket <code>de.mide.restapidemo.rest1</code>:</p>
   <ul>
+      <li><a href="rest1/datumUndZeitAlsString" target="_blank">rest1/datumUndZeitAlsString</a></li>
+      <li><a href="rest1/datumUndZeitAlsObjekt" target="_blank">rest1/datumUndZeitAlsObjekt</a></li>
+  </ul>
 
-    <li><a href="rest1/datumUndZeitAlsString" target="_blank">rest1/datumUndZeitAlsString</a></li>
-
-    <li><a href="rest1/datumUndZeitAlsObjekt" target="_blank">rest1/datumUndZeitAlsObjekt</a></li>
-
+  <p>REST-API-Methoden in Klasse <code>ParameterRestController</code> von Paket <code>de.mide.restapidemo.rest2</code>:</p>
+  <ul>
     <li><a href="rest2/addieren?zahl1=123&zahl2=234" target="_blank">rest2/addieren?zahl1=123&zahl2=234</a></li>
-
     <li><a href="rest2/subtrahieren/150/minus/25"    target="_blank">rest2/subtrahieren/150/minus/25</a></li>
-
   </ul>
 
 
@@ -51,7 +52,7 @@
 
     <label for="meineTextarea">An REST-Methode zu sendende Daten:</label>
     <br>
-    <textarea id="meineTextarea" name="meinKey" cols="40" rows="10">Falsches Üben von Xylophonmusik quält jeden größeren Zwerg.</textarea>
+    <textarea id="meineTextarea" name="meinKey" cols="40" rows="10"></textarea>
     <br>
 
     <button type="submit">Eingaben absenden</button>
@@ -64,9 +65,9 @@
   </p>
 
   <p>
-     Wird z.B. "Lorem Ipsum" eingegeben, dann wird dieser Methode der folgende String übergeben:
+     Wird z.B. <i>"Falsches Üben von Xylophonmusik quält jeden größeren Zwerg"</i> eingegeben, dann wird dieser Methode der folgende String übergeben (siehe auch Log-Output):
   </p>
-  <pre>meinKey=Falsches+%C3%9Cben+von+Xylophonmusik+qu%C3%A4lt+jeden+gr%C3%B6%C3%9Feren+Zwerg.</pre>
+  <pre>meinKey=Falsches+%C3%9Cben+von+Xylophonmusik+qu%C3%A4lt+jeden+gr%C3%B6%C3%9Feren+Zwerg</pre>
 
 
   <p>
