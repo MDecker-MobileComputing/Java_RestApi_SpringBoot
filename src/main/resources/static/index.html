@@ -3,9 +3,9 @@
 <head>
     <title>Statische Homepage von Demo-Applikation "REST-API mit Spring Boot"</title>
     <meta charset="utf-8">
-    <style>
 
-        /* CSS-Regeln */
+    <!-- CSS-Regeln -->
+    <style>
 
         body { font-family: sans-serif; } /* Alle Schriften ohne Serifen */
 
@@ -48,7 +48,7 @@
 
   <h2>Daten an REST-API-Method mit HTTP-POST schicken</h2>
 
-  <form action="rest3/datenViaPostRequestEmpfangen"  id="testformular_1"  method="post">
+  <form id="testformular_1" action="rest3/datenViaPostRequestEmpfangen" method="post">
 
     <label for="meineTextarea">An REST-Methode zu sendende Daten:</label>
     <br>
@@ -57,6 +57,7 @@
 
     <button type="submit">Eingaben absenden</button>
     <button type="reset" >Eingaben zurücksetzen</button>
+
   </form>
 
   <p>Die REST-API-Methode, die diesen POST-Request entgegennimmt, ist
@@ -68,7 +69,6 @@
      Wird z.B. <i>"Falsches Üben von Xylophonmusik quält jeden größeren Zwerg"</i> eingegeben, dann wird dieser Methode der folgende String übergeben (siehe auch Log-Output):
   </p>
   <pre>meinKey=Falsches+%C3%9Cben+von+Xylophonmusik+qu%C3%A4lt+jeden+gr%C3%B6%C3%9Feren+Zwerg</pre>
-
 
   <p>
      Der Schlüssel <code>meinKey</code> wird mit dem Attribut <code>name</code> im HTML-Formular-Element <code>textarea</code> definiert.
