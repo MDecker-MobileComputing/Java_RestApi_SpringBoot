@@ -8,6 +8,10 @@ Additional information concerning this application can be found on [the Wiki pag
 
 <br>
 
+See [this repository](https://github.com/MDecker-MobileComputing/Java_RestAPI_BmiBerechnung/) for another Java application that implements a REST API, but not with *Spring Boot*. 
+
+<br>
+
 ----
 
 # Running the application
