@@ -50,4 +50,6 @@ Execute script `maven_javadoc.bat` in Window's *cmd.exe*; the output files are w
 ----
 # License
 
-See the [LICENSE file](LICENSE.md) for license rights and limitations (BSD 3-Clause License).	 
+See the [LICENSE file](LICENSE.md) for license rights and limitations (BSD 3-Clause License).
+
+See libraries and frameworks used as dependencies (see file `pom.xml`) have their own licenses.
