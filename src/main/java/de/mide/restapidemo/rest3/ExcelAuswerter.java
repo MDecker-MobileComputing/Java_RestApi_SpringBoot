@@ -41,67 +41,80 @@ public class ExcelAuswerter {
      * @return  String, der Wert von Zelle A1 beschreibt; der Inhalt kann auch sein, dass das erste Tabellenblatt, die erste
      *          Zeile auf diesem Tabellenblatt, oder die erste Zelle in dieser Zeile nicht existiert.
      * 
-     * @throws IOException  Fehler bei Ein-/Ausgabe-Verarbeitung von Excel-Datei.
-     * 
-     * @throws IllegalArgumentException Erstes Tabellenblatt (Index=0) existiert nicht.
+     * @throws IOException  Fehler bei Ein-/Ausgabe-Verarbeitung von Excel-Datei.  
      */
-    public static String getWertZelleA1(InputStream inputStreamExcelDatei) throws IOException, IllegalArgumentException {
-        
-        String ergebnisString = "";
-        
+    public static String getWertZelleA1(InputStream inputStreamExcelDatei) throws IOException {
+                
         XSSFWorkbook workbook = new XSSFWorkbook(inputStreamExcelDatei); // kann IOException werfen
         
+        String ergebnisString = getWertVonZelleA1(workbook);
+        
+        // Excel-Datei muss auf jeden Fall wieder geschlossen werden
+        workbook.close();
+
+        return ergebnisString;        
+    }
+    
+    
+    /**
+     * Sicheres Auslesen von Wert aus Zelle A1 auf dem ersten Tabellenblatt. 
+     *  
+     * @param excelDatei  Excel-Datei, aus der der Wert von Zelle A1 auf dem ersten Tabellenblatt ausgelesen werden soll.
+     * 
+     * @return  String, der Wert von Zelle A1 beschreibt; der Inhalt kann auch sein, dass das erste Tabellenblatt, die erste
+     *          Zeile auf diesem Tabellenblatt, oder die erste Zelle in dieser Zeile nicht existiert.
+     */
+    protected static String getWertVonZelleA1(XSSFWorkbook excelDatei) {
+    	
+    	XSSFSheet sheet = null;
         
         // Erstes Tabellenblatt holen
-        XSSFSheet sheet = workbook.getSheetAt(0); // kann IllegalArgumentException werfen
-        
-                
-        // Zelle aus Tabellenblatt holen
-        XSSFRow  ersteZeile = sheet.getRow(0);
-        LOGGER.info("Erste Zeile in Excel-Datei: {}", ersteZeile);
-        if (ersteZeile == null) { // auch wenn die zweite oder höhere Zeile existiert kann die erste Zeile nicht existieren
-            
-            ergebnisString = "Erste Zeile existiert nicht auf Tabellenblatt 1.";
-            
-        } else {
-                    
-            XSSFCell ersteZelle = ersteZeile.getCell(0, MissingCellPolicy.CREATE_NULL_AS_BLANK);
-            LOGGER.info("Erste Zelle in erster Zeile: {}", ersteZelle);
-            if (ersteZelle == null) {
-            
-                ergebnisString = "Erste Zeile Zelle in erste Zeile existiert nicht.";
-                
-            } else {
-                
-                // Wert aus Zelle herausholen
-                CellType zellenTyp = ersteZelle.getCellType();         
-                LOGGER.info("Typ der Zelle A1 in hochgeladener xlsx-Datei: {}", zellenTyp);
-                
-                switch (zellenTyp) {
-                
-                    case STRING:
-                        String stringWert = ersteZelle.getStringCellValue();
-                        ergebnisString = String.format("String in Zelle A1: \"%s\"", stringWert); 
-                    break;
-        
-                    case NUMERIC:
-                        double zahlenWert = ersteZelle.getNumericCellValue(); 
-                        ergebnisString = String.format("Numeric in Zelle A1: \"%d\"", zahlenWert);
-                    break;
-                        
-                    case BLANK:
-                        ergebnisString = "Zelle A1 ist leer.";
-                    break;
-                
-                    default: 
-                        ergebnisString = "Nicht unterstützter Typ der Zelle A1: \"" + zellenTyp + "\"";        
-                }
-            }
+    	try {
+    		sheet = excelDatei.getSheetAt(0); 
+    	}
+    	catch (IllegalArgumentException ex) {
+    		
+    		LOGGER.error("Exception beim Zugriff auf Tabellenblatt 1", ex);
+    		
+    		return "Tabellenblatt 1 nicht gefunden";
+    	}
+
+            	
+        XSSFRow ersteZeile = sheet.getRow(0);
+        if (ersteZeile == null) {
+        	
+        	return "Zeile 1 nicht gefunden";
         }
         
-        workbook.close(); // sollte auf jeden Fall gemacht werden
+        
+        XSSFCell ersteZelle = ersteZeile.getCell(0);
+        if (ersteZelle == null) {
+        	
+        	return "Zelle A in Zeile 1 nicht gefunden";
+        }
+        
+        
+        CellType zellenTyp = ersteZelle.getCellType();         
+        LOGGER.info("Typ der Zelle A1 in hochgeladener xlsx-Datei: {}", zellenTyp);
+        
+        switch (zellenTyp) {
+        
+            case STRING:
+                String stringWert = ersteZelle.getStringCellValue();
+                return String.format("String in Zelle A1: \"%s\"", stringWert); 
 
-        return ergebnisString;
+            case NUMERIC:
+                double zahlenWert = ersteZelle.getNumericCellValue(); 
+                return String.format("Numeric in Zelle A1: \"%f\"", zahlenWert);
+                
+            case BLANK:
+                return "Zelle A1 ist leer.";
+        
+            default: 
+                return "Nicht unterstützter Typ der Zelle A1: \"" + zellenTyp + "\"";        
+        }
+        
+        
     }
 
 }

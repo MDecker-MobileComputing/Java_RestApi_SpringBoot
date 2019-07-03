@@ -98,7 +98,6 @@ public class PostRequestRestController {
             InputStream excelDateiInputStream = datei.getInputStream();
             
             String ergebnisStr = ExcelAuswerter.getWertZelleA1(excelDateiInputStream);
-            ergebnisStr = String.format(ergebnisStr);
             LOGGER.info( ergebnisStr );
             
             return ergebnisStr;
