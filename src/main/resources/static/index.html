@@ -3,6 +3,7 @@
 <head>
     <title>Statische Homepage von Demo-Applikation "REST-API mit Spring Boot"</title>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- CSS-Regeln -->
     <style>
@@ -46,7 +47,7 @@
   </ul>
 
 
-  <h2>Daten an REST-API-Method mit HTTP-POST schicken</h2>
+  <h2>Daten an REST-API-Methode mit HTTP-POST schicken</h2>
 
   <form id="testformular_1" action="rest3/datenViaPostRequestEmpfangen" method="post">
 
@@ -75,6 +76,19 @@
      Sonderzeichen wie das Leerzeichen oder Umlaute werden hierbei durch das sog.
      <a href="https://www.w3schools.com/tags/ref_urlencode.asp" target="_blank">URL Encoding</a> ersetzt.
   </p>
+
+
+  <h2>Datei an REST-API-Methode schicken</h2>
+
+  <p>Binär-Datei von lokalem Rechner hochladen und an REST-Methode schicken.</p>
+
+  <form action="rest3/dateiHochladen" method="post" enctype="multipart/form-data">
+
+    <label>Excel-Datei (xlsx) auswählen:</label>
+    <input type="file" name="datei" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+
+    <button type="submit">Hochladen</button>
+</form>
 
 </body>
 
