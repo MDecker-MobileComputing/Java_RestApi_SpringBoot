@@ -1,5 +1,7 @@
 package de.mide.restapidemo.rest3;
 
+import java.io.InputStream;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -63,8 +65,14 @@ public class PostRequestRestController {
     
 
     /**
-     * Rest-Methode zum Empfang hochgeladener (Binär-)Datei.
+     * Rest-Methode zum Empfang hochgeladener Excel-Datei ("neues" xlsx-Datei).
      * Siehe auch <a href="http://zetcode.com/springboot/uploadfile/" target="_blank">dieses Tutorial</a>.
+     * <br><br>
+     * 
+     * Es wird der Wert der Zelle A1 auf dem ersten Tabellenblatt ausgelesen und an den Browser zurückgegeben
+     * sowie auf den Logger geschrieben. Die Auswertung der Excel-Datei geschieht unter Verwendung der
+     * Bibliothek <a href="https://poi.apache.org" target="_blank">Apache POI</a> in der Methode  
+     * {@link ExcelAuswerter#getWertZelleA1(InputStream)}.
      * <br><br>
      * 
      * Bei lokaler Ausführung ist diese REST-Methode unter der folgenden URL verfügbar:
@@ -72,7 +80,7 @@ public class PostRequestRestController {
      * 
      * @param datei  Hochgeladene Datei (Parameter-Name muss mit Wert von Attribut {@code name} von {@code input}-Tag übereinstimmen).
      * 
-     * @return  String mit Erfolgsmeldung für Client.
+     * @return  String mit Inhalt der Zelle A1 aus der hochgeladenen Excel-Datei oder Fehlermeldung.
      */
     @RequestMapping(value = "/dateiHochladen", method = RequestMethod.POST, consumes = {"multipart/form-data"})            
     public String dateiHochladen(@RequestParam MultipartFile datei) {
@@ -82,11 +90,26 @@ public class PostRequestRestController {
         long   dateiGroesseBytes  = datei.getSize();        
         String contentTypeString  = datei.getContentType();     
         
-        String ergebnisStr = String.format("Datei mit Name \"%s\" empfangen (%d Bytes, Content Type \"%s\").", dateiName, dateiGroesseBytes, contentTypeString);
+        String metaDatenString = String.format("Datei mit Name \"%s\" empfangen (%d Bytes, Content Type \"%s\").", dateiName, dateiGroesseBytes, contentTypeString);        
+        LOGGER.info( metaDatenString );
         
-        LOGGER.info( ergebnisStr );
-                    
-        return ergebnisStr;
+        try {
+            
+            InputStream excelDateiInputStream = datei.getInputStream();
+            
+            String ergebnisStr = ExcelAuswerter.getWertZelleA1(excelDateiInputStream);
+            ergebnisStr = String.format(ergebnisStr);
+            LOGGER.info( ergebnisStr );
+            
+            return ergebnisStr;
+            
+        } catch (Exception ex) {
+            
+            String fehlerNachricht = "Exception beim Auswerten von Excel-Datei aufgetreten: " + ex.getMessage(); 
+            
+            LOGGER.error(fehlerNachricht, ex);
+            return fehlerNachricht;
+        }
     }
     
 }
