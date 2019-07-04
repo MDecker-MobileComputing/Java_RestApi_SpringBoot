@@ -55,6 +55,7 @@ public class DatumUndZeitRestController {
      * <a href="http://localhost:8080/rest1/datumUndZeitAlsString">http://localhost:8080/rest1/datumUndZeitAlsString</a>
      *
      * @return  String, der als HTTP-Antwort an den Client zurückgeschickt wird.
+     *          Beispiel: <pre>Thu Jul 04 14:23:54 CEST 2019</pre>
      */
     @RequestMapping(value = "/datumUndZeitAlsString", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
     public String datumUndZeitAlsString() {
