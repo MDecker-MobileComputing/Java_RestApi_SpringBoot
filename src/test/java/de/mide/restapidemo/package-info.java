@@ -22,6 +22,16 @@
  * (<a href="https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-testing.html#boot-features-testing-spring-boot-applications-testing-autoconfigured-mvc-tests" target="_blank">Quelle</a>)
  * <br><br>
  * 
+ * Die Testklassen müssen mit {@code @RunWith(SpringRunner.class)} annotiert werden, um eine Verbindung zwischen
+ * JUnit und dem Spring-Boot-Testframework herzustellen. 
+ * (<a href="https://www.baeldung.com/spring-boot-testing" target="_blank">Quelle</a>).
+ * <br><br>
+ * 
+ * Unit-Tests werden vom 
+ * <a href="https://maven.apache.org/surefire/maven-surefire-plugin/index.html" target="_blank">Surefire-Plugin</a>
+ * ausgeführt.
+ * <br><br>
+ * 
  * Es wird JUnit 4.x verwendet, siehe auch
  * <a href="https://junit.org/junit4/javadoc/latest/" target="_blank">die zugehörige API-Doku</a>
  * (in Ausgabe von Befehl {@code mvn dependency:tree} kann man sehen, welche Version von JUnit verwendet wird).

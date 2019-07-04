@@ -23,11 +23,10 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.ResultHandler;
 import org.springframework.test.web.servlet.ResultMatcher;
 
-import de.mide.restapidemo.rest1.DatumUndZeitRestController;
 
 
 /**
- * Unit-Test-Methoden für die REST-Methoden in Klasse {@link DatumUndZeitRestController}.
+ * Unit-Test-Methoden für die REST-Methoden in Klasse {@link de.mide.restapidemo.rest1.DatumUndZeitRestController}.
  * <br><br><br>
  *
  * This project is licensed under the terms of the BSD 3-Clause License.
