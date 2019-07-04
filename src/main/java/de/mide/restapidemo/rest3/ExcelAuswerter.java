@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.Row.MissingCellPolicy;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -15,9 +14,9 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Klasse zum Auswerten von Excel-Dateien, die mit einem POST-Request an eine REST-Methode hochgeladen worden sind.
- * Hierzu wird die Bibliothek <a href="https://poi.apache.org/" target="_blank">Apache POI - the Java API for Microsoft Documents</a> verwendet. 
- * Siehe auch die <a href="https://poi.apache.org/apidocs/dev/index.html" target="_blank">API-Dokumentation zu POI</a>
- * und die <a href="https://en.wikipedia.org/wiki/Apache_POI" target="_blank">Wikipedia-Seite</a>.
+ * Hierzu wird die Bibliothek <a href="https://poi.apache.org/" target="_blank">Apache POI - the Java API for Microsoft Documents</a> verwendet; 
+ * siehe auch die <a href="https://poi.apache.org/apidocs/dev/index.html" target="_blank">API-Dokumentation zu POI</a>
+ * und den <a href="https://en.wikipedia.org/wiki/Apache_POI" target="_blank">Wikipedia-Artikel</a>.
  * <br><br>
  * 
  * "POI" muss als Abhängigkeit in der Datei {@code pom.xml} deklariert werden mit {@code groupID=org.apache.poi} und
@@ -48,16 +47,19 @@ public class ExcelAuswerter {
         XSSFWorkbook workbook = new XSSFWorkbook(inputStreamExcelDatei); // kann IOException werfen
         
         String ergebnisString = getWertVonZelleA1(workbook);
-        
-        // Excel-Datei muss auf jeden Fall wieder geschlossen werden
-        workbook.close();
+                
+        workbook.close(); // Excel-Datei muss auf jeden Fall wieder geschlossen werden
 
         return ergebnisString;        
     }
     
     
     /**
-     * Sicheres Auslesen von Wert aus Zelle A1 auf dem ersten Tabellenblatt. 
+     * Sicheres Auslesen von Wert aus Zelle A1 auf dem ersten Tabellenblatt.
+     * Zeile 1 kann nicht-existent sein, auch wenn folgende Zeile existieren; Zelle 1 in Zeile 1 kann nicht-existent
+     * sein, auch wenn andere Zellen in dieser Zeile existieren.
+     * Die Methode berücksichtigt die Fälle, dass das erste Tabellenblatt, die erste Zeile im ersten Tabellenblatt
+     * oder die erste Zelle in der ersten Zeile nicht vorhanden ist.   
      *  
      * @param excelDatei  Excel-Datei, aus der der Wert von Zelle A1 auf dem ersten Tabellenblatt ausgelesen werden soll.
      * 
@@ -67,15 +69,13 @@ public class ExcelAuswerter {
     protected static String getWertVonZelleA1(XSSFWorkbook excelDatei) {
     	
     	XSSFSheet sheet = null;
-        
-        // Erstes Tabellenblatt holen
-    	try {
-    		sheet = excelDatei.getSheetAt(0); 
+                
+    	try {    	        	 
+    		sheet = excelDatei.getSheetAt(0); // Erstes Tabellenblatt holen 
     	}
     	catch (IllegalArgumentException ex) {
     		
-    		LOGGER.error("Exception beim Zugriff auf Tabellenblatt 1", ex);
-    		
+    		LOGGER.error("Exception beim Zugriff auf Tabellenblatt 1.", ex);    		
     		return "Tabellenblatt 1 nicht gefunden";
     	}
 
@@ -83,14 +83,14 @@ public class ExcelAuswerter {
         XSSFRow ersteZeile = sheet.getRow(0);
         if (ersteZeile == null) {
         	
-        	return "Zeile 1 nicht gefunden";
+        	return "Zeile 1 nicht gefunden.";
         }
         
         
         XSSFCell ersteZelle = ersteZeile.getCell(0);
         if (ersteZelle == null) {
         	
-        	return "Zelle A in Zeile 1 nicht gefunden";
+        	return "Zelle A in Zeile 1 nicht gefunden.";
         }
         
         
@@ -107,14 +107,16 @@ public class ExcelAuswerter {
                 double zahlenWert = ersteZelle.getNumericCellValue(); 
                 return String.format("Numeric in Zelle A1: \"%f\"", zahlenWert);
                 
+            case FORMULA:
+                String formelWert = ersteZelle.getCellFormula(); // Das "=" am Anfang der Formel ist nicht enthalten
+                return String.format("Formel in Zelle A1: \"%s\"", formelWert);
+                
             case BLANK:
                 return "Zelle A1 ist leer.";
         
             default: 
-                return "Nicht unterstützter Typ der Zelle A1: \"" + zellenTyp + "\"";        
-        }
-        
-        
+                return "Nicht unterstützter Typ der Zelle A1: \"" + zellenTyp + "\".";        
+        }               
     }
 
 }
