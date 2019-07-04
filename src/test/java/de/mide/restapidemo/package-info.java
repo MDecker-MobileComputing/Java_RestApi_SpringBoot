@@ -24,13 +24,13 @@
  * 
  * Es wird JUnit 4.x verwendet, siehe auch
  * <a href="https://junit.org/junit4/javadoc/latest/" target="_blank">die zugehörige API-Doku</a>
- * (durch Ausgabe von Befehl {@code mvn dependency:tree} kann man sehen, welche Version von JUnit verwendet wird).
+ * (in Ausgabe von Befehl {@code mvn dependency:tree} kann man sehen, welche Version von JUnit verwendet wird).
  * <br><br>
  *
  * Es werden Matcher aus dem <a href="http://hamcrest.org/JavaHamcrest/" target="_blank">Hamcrest-Framework</a> verwendet
  * ("Hamcrest" ist ein Anagramm des Wort "Matchers").
  * Siehe auch die <a href="http://hamcrest.org/JavaHamcrest/javadoc/1.3/" target="_blank">API-Doku von Hamcrest 1.3</a>
- * (durch Ausgabe von Befehl {@code mvn dependency:tree} kann man sehen, welche Version von Hamcrest verwendet wird).
+ * (in Ausgabe von Befehl {@code mvn dependency:tree} kann man sehen, welche Version von Hamcrest verwendet wird).
  * <br><br><br>
  * 
  * 

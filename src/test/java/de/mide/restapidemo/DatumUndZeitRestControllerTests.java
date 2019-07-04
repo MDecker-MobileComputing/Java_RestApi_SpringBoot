@@ -35,7 +35,7 @@ import de.mide.restapidemo.rest1.DatumUndZeitRestController;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class RestdemoApplicationTests {
+public class DatumUndZeitRestControllerTests {
     
     /** 
      * Mock-Objekt für die Ausführung der HTTP-Requests.
@@ -53,15 +53,15 @@ public class RestdemoApplicationTests {
      * Die HTTP-Response wird mit {@code .andDo(printHandler)} auf die Konsole geschrieben, was
      * einen Output ähnlich dem folgenden ergibt:
      * <pre>
-     * MockHttpServletResponse:
-     *         Status = 200
-     *  Error message = null
-     *        Headers = [Content-Type:"text/plain;charset=UTF-8", Content-Length:"29"]
-     *   Content type = text/plain;charset=UTF-8
-     *           Body = Thu Jul 04 14:28:12 CEST 2019
-     *  Forwarded URL = null
-     * Redirected URL = null
-     *        Cookies = []
+     *   MockHttpServletResponse:
+     *           Status = 200
+     *    Error message = null
+     *          Headers = [Content-Type:"text/plain;charset=UTF-8", Content-Length:"29"]
+     *     Content type = text/plain;charset=UTF-8
+     *             Body = Thu Jul 04 14:28:12 CEST 2019
+     *    Forwarded URL = null
+     *   Redirected URL = null
+     *          Cookies = []
      * </pre>
      * 
      * @throws Exception  Fehler beim Testen aufgetreten
