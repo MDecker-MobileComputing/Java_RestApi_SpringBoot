@@ -1,15 +1,14 @@
 package de.mide.restapidemo;
 
+import static org.hamcrest.core.StringContains.containsString;
+import static org.hamcrest.core.StringEndsWith.endsWith;
+import static org.hamcrest.core.StringStartsWith.startsWith;
 import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import static org.hamcrest.core.StringStartsWith.startsWith;
-import static org.hamcrest.core.StringEndsWith.endsWith;
-import static org.hamcrest.core.StringContains.containsString;
-
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,26 +23,11 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.ResultHandler;
 import org.springframework.test.web.servlet.ResultMatcher;
 
+import de.mide.restapidemo.rest1.DatumUndZeitRestController;
+
 
 /**
- * Doku zum Unit-Testen von REST-Methoden siehe
- * <a href="https://spring.io/guides/gs/testing-web/" target="_blank">diesen Guide auf <i>spring.io</i></a>.
- * <br><br>
- * 
- * Nur Tests ausführen ("test"` ist eine Phase von maven): {@code mvn test}<br>
- * Die Tests werden aber auch bei {@code mvn package} ausgeführt; wenn man beim Packagen die Tests überspringen
- * will, dann ruft man {@code mvn -Dmaven.test.skip=true package} auf.
- * <br><br>
- * 
- * Die Appliation ist keine MVC-Anwendung (sie verwendet nicht {@code @WebMvcTest} sondern {@code @SpringBootTest},
- * deshalb muss die Testklasse zusätzlich mit {@code @AutoConfigureMockMvc} annotiert werden. 
- * (<a href="https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-testing.html#boot-features-testing-spring-boot-applications-testing-autoconfigured-mvc-tests" target="_blank">Quelle</a>)
- * <br><br>
- *
- * Es werden Matcher aus dem <a href="http://hamcrest.org/JavaHamcrest/" target="_blank">Hamcrest-Framework</a> verwendet
- * ("Hamcrest" ist ein Anagramm des Wort "Matchers").
- * Siehe auch die <a href="http://hamcrest.org/JavaHamcrest/javadoc/1.3/" target="_blank">API-Doku von Hamcrest 1.3</a>
- * (durch Ausgabe von Befehl {@code mvn dependency:tree} kann man sehen, welche Version von Hamcrest verwendet wird).
+ * Unit-Test-Methoden für die REST-Methoden in Klasse {@link DatumUndZeitRestController}.
  * <br><br><br>
  *
  * This project is licensed under the terms of the BSD 3-Clause License.
@@ -110,7 +94,7 @@ public class RestdemoApplicationTests {
         RequestBuilder requestBuilder       = get("/rest1/datumUndZeitAlsObjekt");
         ResultHandler  printHandler         = print();
         ResultMatcher  httpStatus200Matcher = status().isOk();  
-                        
+                                
         ResultActions ra1 = _mock.perform( requestBuilder ).andDo( printHandler ).andExpect( httpStatus200Matcher );
 
         
@@ -123,7 +107,34 @@ public class RestdemoApplicationTests {
         ResultMatcher jsonKeyDatumMatcher = content().string( containsString( "\"datum\"" ) );
         ResultMatcher jsonKeyZeitMatcher  = content().string( containsString( "\"zeit\""  ) );
         
-        ra2.andExpect(jsonKeyDatumMatcher).andExpect(jsonKeyZeitMatcher);
+        ra2.andExpect(jsonKeyDatumMatcher).andExpect(jsonKeyZeitMatcher);                
+    }
+    
+    
+    /**
+     * Test für REST-Methode {@code /rest1/datumUndZeitMitResponseEntity}.
+     * Überprüft u.a. die Custom Response Header.
+     * 
+     * @throws Exception  Fehler beim Testen aufgetreten
+     */
+    @Test
+    public void testDatumUndZeitMitResponseEntity() throws Exception {
+        
+        RequestBuilder requestBuilder       = get("/rest1/datumUndZeitMitResponseEntity");
+        ResultHandler  printHandler         = print();
+        ResultMatcher  httpStatus202Matcher = status().isAccepted(); // nicht 200!
+                                
+        ResultActions ra1 = _mock.perform( requestBuilder ).andDo( printHandler ).andExpect( httpStatus202Matcher );
+        
+        ResultMatcher serverHeaderMatcher = header().string("Server"       , "Spring Boot RestController");
+        ResultMatcher cacheHeaderMatcher  = header().string("Cache-Control", "no-cache"                  );
+        
+        MvcResult mvcResult = ra1.andExpect(serverHeaderMatcher).andExpect(cacheHeaderMatcher).andReturn();
+        
+        String httpResponseAsString = mvcResult.getResponse().getContentAsString();
+        int    httpResponseLaenge   = httpResponseAsString.trim().length(); 
+        
+        assertTrue("String mit Datum+Uhrzeit zu kurz.", httpResponseLaenge > 1);        
     }
 
 }

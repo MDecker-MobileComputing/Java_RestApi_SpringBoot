@@ -109,7 +109,7 @@ public class DatumUndZeitRestController {
      * "Tools | Web Developer | Network" anschauen, siehe auch 
      * <a target="_blank" href="https://github.com/MDecker-MobileComputing/Java_RestApi_SpringBoot/wiki/HTTP-Response-Header-setzen">diese Wiki-Seite (mit Screenshot)</a>.
      * 
-     * @return  Objekt mit HTTP-Response-Antwort und HTTP-Status-Code 202 (Accepted).
+     * @return  Objekt mit HTTP-Response-Antwort und HTTP-Status-Code 202 (Accepted) sowie zwei Response-Headern.
      */
     @RequestMapping(value = "/datumUndZeitMitResponseEntity", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> datumUndZeitMitResponseEntity() {
