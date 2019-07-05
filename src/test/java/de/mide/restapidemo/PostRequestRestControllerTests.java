@@ -2,14 +2,12 @@ package de.mide.restapidemo;
 
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
 
 import java.io.InputStream;
 
-import org.apache.poi.util.IOUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,12 +76,10 @@ public class PostRequestRestControllerTests {
         InputStream is = this.getClass().getResourceAsStream(HilfsklasseFuerTests.PFAD_TESTDATEIEN + dateiName);
         assertNotNull("Testdaten-Fehler: Excel-Datei nicht gefunden.", is);
                 
-       MockMultipartFile mockFile = new MockMultipartFile("datei", dateiName, null, is);
+        MockMultipartFile mockFile = new MockMultipartFile("datei", dateiName, null, is);
         
         RequestBuilder requestBuilder = fileUpload("/rest3/dateiHochladen").file(mockFile).contentType(MediaType.MULTIPART_FORM_DATA);
-        
-        //RequestBuilder requestBuilder = post("/rest3/dateiHochladen").contentType(MediaType.MULTIPART_FORM_DATA_VALUE).content(xlsxByteArray);
-        
+                
         ResultActions ra1 = _mock.perform( requestBuilder ).andExpect( HilfsklasseFuerTests.MATCHER_HTTP_STATUS_200 ).andDo( HilfsklasseFuerTests.RESULT_HANDLER_PRINT );
         
         
