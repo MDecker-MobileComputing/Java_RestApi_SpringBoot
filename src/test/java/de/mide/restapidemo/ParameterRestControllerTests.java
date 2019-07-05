@@ -29,40 +29,40 @@ import org.springframework.test.web.servlet.ResultMatcher;
 @SpringBootTest
 @AutoConfigureMockMvc
 public class ParameterRestControllerTests {
-        
-    /** 
+
+    /**
      * Mock-Objekt für die Ausführung der HTTP-Requests.
      * Es werden HTTP-Requests zu REST-Methoden durch Aufruf der Methode {@link MockMvc#perform(RequestBuilder)}
-     * simuliert. 
+     * simuliert.
      */
     @Autowired
     private MockMvc _mock;
-    
-    
+
+
     /**
      * Test-Methode für die REST-Methode {@code rest2/addieren}; diese REST-Methode erwartet zwei URL-Parameter
      * mit int-Zahlen, die addiert werden.
-     * 
+     *
      * @throws Exception  Fehler beim Testen aufgetreten
      */
     @Test
     public void testAddieren() throws Exception {
-        
+
         RequestBuilder requestBuilder       = get("/rest2/addieren?zahl1=10&zahl2=20"); // 10 + 20 = 30
         ResultHandler  printHandler         = print();
-        ResultMatcher  httpStatus200Matcher = status().isOk();  
-                                
-        ResultActions ra1 = _mock.perform( requestBuilder ).andDo( printHandler ).andExpect( httpStatus200Matcher );    
-        
+        ResultMatcher  httpStatus200Matcher = status().isOk();
+
+        ResultActions ra1 = _mock.perform( requestBuilder ).andDo( printHandler ).andExpect( httpStatus200Matcher );
+
         ResultMatcher responseMatcher = content().string( equalTo("Summe=30") );
-        ra1.andExpect(responseMatcher);        
+        ra1.andExpect(responseMatcher);
     }
-    
+
 
     /**
      * Test-Methode für die REST-Methode {@code rest2/addieren}. Es wird ein Fehler provoziert indem
      * dem zweiten URL-Parameter keine gültige int-Zahl übergeben wird.
-     *  
+     *
      * @throws Exception Fehler beim Testen aufgetreten
      */
     @Test
@@ -71,28 +71,28 @@ public class ParameterRestControllerTests {
         RequestBuilder requestBuilder       = get("/rest2/addieren?zahl1=10&zahl2=xyz");
         ResultHandler  printHandler         = print();
         ResultMatcher  httpStatus400Matcher = status().isBadRequest(); // 400
-                
-        _mock.perform( requestBuilder ).andDo( printHandler ).andExpect( httpStatus400Matcher );        
+
+        _mock.perform( requestBuilder ).andDo( printHandler ).andExpect( httpStatus400Matcher );
     }
-    
-    
+
+
     /**
      * Test-Methode für die REST-Methode {@code rest2/subtrahieren}; diese REST-Methode erwartet zwei URL-Pfad-Parameter
      * mit int-Zahlen, die voneinander subtrahiert werden.
-     * 
+     *
      * @throws Exception  Fehler beim Testen aufgetreten
      */
-    @Test    
+    @Test
     public void testSubtrahieren() throws Exception {
 
         RequestBuilder requestBuilder       = get("/rest2/subtrahieren/100/minus/20"); // 100 - 20 = 80
         ResultHandler  printHandler         = print();
-        ResultMatcher  httpStatus200Matcher = status().isOk();  
-                
+        ResultMatcher  httpStatus200Matcher = status().isOk();
+
         ResultActions ra1 = _mock.perform( requestBuilder ).andDo( printHandler ).andExpect( httpStatus200Matcher );
-        
+
         ResultMatcher responseMatcher = content().string( equalTo("Differenz=80") );
-        ra1.andExpect(responseMatcher);                
+        ra1.andExpect(responseMatcher);
     }
 
 }

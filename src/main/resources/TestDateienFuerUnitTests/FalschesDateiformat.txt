@@ -1,0 +1,4 @@
+
+Dieses Datei ist keine Excel-Datei.
+Sie wird für einen Unit-Test benötigt, der testet, wie die POI-Library reagiert,
+wenn man versucht Datei mit dem falschen Datei-Format als xlsx-Datei zu öffnen.

@@ -35,20 +35,20 @@ import org.springframework.test.web.servlet.ResultMatcher;
 @SpringBootTest
 @AutoConfigureMockMvc
 public class DatumUndZeitRestControllerTests {
-    
-    /** 
+
+    /**
      * Mock-Objekt für die Ausführung der HTTP-Requests.
      * Es werden HTTP-Requests zu REST-Methoden durch Aufruf der Methode {@link MockMvc#perform(RequestBuilder)}
-     * simuliert. 
+     * simuliert.
      */
     @Autowired
     private MockMvc _mock;
-    
-    
+
+
     /**
      * Test für REST-Methode {@code rest1/datumUndZeitAlsObjekt}.
      * <br><br>
-     * 
+     *
      * Die HTTP-Response wird mit {@code .andDo(printHandler)} auf die Konsole geschrieben, was
      * einen Output ähnlich dem folgenden ergibt:
      * <pre>
@@ -62,29 +62,29 @@ public class DatumUndZeitRestControllerTests {
      *   Redirected URL = null
      *          Cookies = []
      * </pre>
-     * 
+     *
      * @throws Exception  Fehler beim Testen aufgetreten
      */
     @Test
     public void testDatumUndZeitAlsString() throws Exception {
-                                         
+
         RequestBuilder requestBuilder       = get("/rest1/datumUndZeitAlsString");
         ResultHandler  printHandler         = print();
         ResultMatcher  httpStatus200Matcher = status().isOk();
-        
+
         MvcResult mvcResult = _mock.perform( requestBuilder ).andDo( printHandler ).andExpect( httpStatus200Matcher ).andReturn();
-                
+
         String httpResponseAsString = mvcResult.getResponse().getContentAsString();
-        int    httpResponseLaenge   = httpResponseAsString.trim().length(); 
-        
-        assertTrue("String mit Datum+Uhrzeit zu kurz.", httpResponseLaenge > 1);               
+        int    httpResponseLaenge   = httpResponseAsString.trim().length();
+
+        assertTrue("String mit Datum+Uhrzeit zu kurz.", httpResponseLaenge > 1);
     }
-    
-    
+
+
     /**
      * Test für REST-Methode {@code rest1/datumUndZeitAlsObjekt}, die JSON-String zurückgibt.
-     * <br><br>  
-     * 
+     * <br><br>
+     *
      * @throws Exception  Fehler beim Testen aufgetreten
      */
     @Test
@@ -92,71 +92,71 @@ public class DatumUndZeitRestControllerTests {
 
         RequestBuilder requestBuilder       = get("/rest1/datumUndZeitAlsObjekt");
         ResultHandler  printHandler         = print();
-        ResultMatcher  httpStatus200Matcher = status().isOk();  
-                                
+        ResultMatcher  httpStatus200Matcher = status().isOk();
+
         ResultActions ra1 = _mock.perform( requestBuilder ).andDo( printHandler ).andExpect( httpStatus200Matcher );
 
-        
+
         ResultMatcher jsonAnfangMatcher = content().string( startsWith("{") );
-        ResultMatcher jsonEndeMatcher   = content().string(   endsWith("}") );                
-        
+        ResultMatcher jsonEndeMatcher   = content().string(   endsWith("}") );
+
         ResultActions ra2 = ra1.andExpect(jsonAnfangMatcher).andExpect(jsonEndeMatcher);
-        
-        
+
+
         ResultMatcher jsonKeyDatumMatcher = content().string( containsString( "\"datum\"" ) );
         ResultMatcher jsonKeyZeitMatcher  = content().string( containsString( "\"zeit\""  ) );
-        
-        ra2.andExpect(jsonKeyDatumMatcher).andExpect(jsonKeyZeitMatcher);                
+
+        ra2.andExpect(jsonKeyDatumMatcher).andExpect(jsonKeyZeitMatcher);
     }
-    
-    
+
+
     /**
      * Test für REST-Methode {@code /rest1/datumUndZeitMitResponseEntity}.
      * Überprüft u.a. die Custom Response Header.
-     * 
+     *
      * @throws Exception  Fehler beim Testen aufgetreten
      */
     @Test
     public void testDatumUndZeitMitResponseEntity() throws Exception {
-        
+
         RequestBuilder requestBuilder       = get("/rest1/datumUndZeitMitResponseEntity");
         ResultHandler  printHandler         = print();
         ResultMatcher  httpStatus202Matcher = status().isAccepted(); // nicht 200, sondern 202.
-                                
+
         ResultActions ra1 = _mock.perform( requestBuilder ).andDo( printHandler ).andExpect( httpStatus202Matcher );
-        
+
         ResultMatcher serverHeaderMatcher = header().string("Server"       , "Spring Boot RestController");
         ResultMatcher cacheHeaderMatcher  = header().string("Cache-Control", "no-cache"                  );
-        
+
         MvcResult mvcResult = ra1.andExpect(serverHeaderMatcher).andExpect(cacheHeaderMatcher).andReturn();
-        
+
         String httpResponseAsString = mvcResult.getResponse().getContentAsString();
-        int    httpResponseLaenge   = httpResponseAsString.trim().length(); 
-        
-        assertTrue("String mit Datum+Uhrzeit zu kurz.", httpResponseLaenge > 1);        
+        int    httpResponseLaenge   = httpResponseAsString.trim().length();
+
+        assertTrue("String mit Datum+Uhrzeit zu kurz.", httpResponseLaenge > 1);
     }
 
 
     /**
      * Test für REST-Methode {@code /rest1/datumUndZeitMitResponseEntityImJsonForma}.
-     * 
+     *
      * @throws Exception  Fehler beim Testen aufgetreten
      */
     @Test
     public void testDatumUndZeitMitResponseEntityImJsonFormat() throws Exception {
-        
+
         RequestBuilder requestBuilder       = get("/rest1/datumUndZeitMitResponseEntityImJsonFormat");
         ResultHandler  printHandler         = print();
         ResultMatcher  httpStatus202Matcher = status().isAccepted(); // nicht 200, sondern 202.
-                                
+
         ResultActions ra1 = _mock.perform( requestBuilder ).andDo( printHandler ).andExpect( httpStatus202Matcher );
-        
+
         ResultMatcher serverHeaderMatcher = header().string("Server"       , "Spring Boot RestController");
         ResultMatcher cacheHeaderMatcher  = header().string("Cache-Control", "no-cache"                  );
-        
+
         ra1.andExpect(serverHeaderMatcher).andExpect(cacheHeaderMatcher).andReturn();
-        
-        
+
+
         // Calling again to also cover other branch for "if (_jacksonSerializer == null) {..."
         _mock.perform( requestBuilder ).andDo( printHandler ).andExpect( httpStatus202Matcher );
     }

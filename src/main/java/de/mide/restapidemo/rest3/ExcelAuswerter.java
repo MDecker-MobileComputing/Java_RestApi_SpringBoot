@@ -1,6 +1,5 @@
 package de.mide.restapidemo.rest3;
 
-import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.poi.ss.usermodel.CellType;
@@ -40,9 +39,9 @@ public class ExcelAuswerter {
      * @return  String, der Wert von Zelle A1 beschreibt; der Inhalt kann auch sein, dass das erste Tabellenblatt, die erste
      *          Zeile auf diesem Tabellenblatt, oder die erste Zelle in dieser Zeile nicht existiert.
      * 
-     * @throws IOException  Fehler bei Ein-/Ausgabe-Verarbeitung von Excel-Datei.  
+     * @throws Exception  Fehler bei Auswertung der Excel-Datei  
      */
-    public static String getWertZelleA1(InputStream inputStreamExcelDatei) throws IOException {
+    public static String getWertZelleA1(InputStream inputStreamExcelDatei) throws Exception {
                 
         XSSFWorkbook workbook = new XSSFWorkbook(inputStreamExcelDatei); // kann IOException werfen
         

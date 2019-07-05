@@ -31,35 +31,35 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class PostRequestRestControllerTests {
-	
-    /** 
+
+    /**
      * Mock-Objekt für die Ausführung der HTTP-Requests.
      * Es werden HTTP-Requests zu REST-Methoden durch Aufruf der Methode {@link MockMvc#perform(RequestBuilder)}
-     * simuliert. 
+     * simuliert.
      */
     @Autowired
     private MockMvc _mock;
-    
-    
+
+
     /**
      * Test-Methode für die REST-Methode {@code rest3/datenViaPostRequestEmpfangen} via POST-Request.
-     * 
+     *
      * @throws Exception  Fehler beim Testen aufgetreten
      */
-    @Test    
+    @Test
     public void testDatenViaPostRequestEmpfangen() throws Exception {
-    	        
-    	final String textPayload = "Lorem Ipsum"; // 11 Zeichen
-    	
+
+        final String textPayload = "Lorem Ipsum"; // 11 Zeichen
+
         ResultHandler  printHandler         = print();
         ResultMatcher  httpStatus200Matcher = status().isOk();
-        
+
         RequestBuilder requestBuilder = post("/rest3/datenViaPostRequestEmpfangen").contentType(MediaType.TEXT_PLAIN).content(textPayload);
-        
+
         ResultActions ra1 = _mock.perform( requestBuilder ).andDo( printHandler ).andExpect( httpStatus200Matcher );
-         
+
         ResultMatcher responseMatcher = content().string( equalTo("Daten (11 Zeichen) empfangen.") );
-        ra1.andExpect(responseMatcher);         		
+        ra1.andExpect(responseMatcher);
     }
 
 }
