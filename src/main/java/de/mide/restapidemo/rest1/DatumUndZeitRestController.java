@@ -157,13 +157,14 @@ public class DatumUndZeitRestController {
         DatumUndZeitWrapper datumUndZeit = new DatumUndZeitWrapper();
         
         try {
+
             String jsonResultString = _jacksonSerializer.writeValueAsString(datumUndZeit); 
                               
             return new ResponseEntity<String>(jsonResultString, eigeneResponseHeader, HttpStatus.ACCEPTED);
         }
         catch (JsonProcessingException ex) {
             
-            LOGGER.error("Fehelr bei Serialisierung von Java-Objekt.", ex);
+            LOGGER.error("Fehler bei Serialisierung von Java-Objekt.", ex);
             
             return new ResponseEntity<String>(eigeneResponseHeader, HttpStatus.INTERNAL_SERVER_ERROR);
         }        

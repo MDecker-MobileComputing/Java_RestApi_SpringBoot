@@ -22,6 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 /**
  * Unit-Test-Methoden für die REST-Methoden in Klasse {@link de.mide.restapidemo.rest3.PostRequestRestController}.
+ * Alle Test-Methoden in dieser Klasse simulieren POST-Requests.
  * <br><br><br>
  *
  * This project is licensed under the terms of the BSD 3-Clause License.

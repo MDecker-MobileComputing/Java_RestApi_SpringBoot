@@ -74,7 +74,7 @@ public class ExcelAuswerter {
     		sheet = excelDatei.getSheetAt(0); // Erstes Tabellenblatt holen 
     	}
     	catch (IllegalArgumentException ex) {
-    		
+    		// Kann dieser Fehler überhaupt auftreten, weil zumindest in Excel-Anwendung ist es nicht möglich eine XLSX-Datei ganz ohne Tabellenblätter zu erzeugen
     		LOGGER.error("Exception beim Zugriff auf Tabellenblatt 1.", ex);    		
     		return "Tabellenblatt 1 nicht gefunden";
     	}
@@ -82,7 +82,7 @@ public class ExcelAuswerter {
             	
         XSSFRow ersteZeile = sheet.getRow(0);
         if (ersteZeile == null) {
-        	
+            // Wenn keine einzige Zelle in der Zeile 1 einen Wert hat, dann gibt es diese Zeile nicht        	
         	return "Zeile 1 nicht gefunden.";
         }
         

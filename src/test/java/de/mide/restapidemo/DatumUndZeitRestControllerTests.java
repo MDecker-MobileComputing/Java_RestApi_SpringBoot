@@ -121,7 +121,7 @@ public class DatumUndZeitRestControllerTests {
         
         RequestBuilder requestBuilder       = get("/rest1/datumUndZeitMitResponseEntity");
         ResultHandler  printHandler         = print();
-        ResultMatcher  httpStatus202Matcher = status().isAccepted(); // nicht 200!
+        ResultMatcher  httpStatus202Matcher = status().isAccepted(); // nicht 200, sondern 202.
                                 
         ResultActions ra1 = _mock.perform( requestBuilder ).andDo( printHandler ).andExpect( httpStatus202Matcher );
         
@@ -134,6 +134,31 @@ public class DatumUndZeitRestControllerTests {
         int    httpResponseLaenge   = httpResponseAsString.trim().length(); 
         
         assertTrue("String mit Datum+Uhrzeit zu kurz.", httpResponseLaenge > 1);        
+    }
+
+
+    /**
+     * Test für REST-Methode {@code /rest1/datumUndZeitMitResponseEntityImJsonForma}.
+     * 
+     * @throws Exception  Fehler beim Testen aufgetreten
+     */
+    @Test
+    public void testDatumUndZeitMitResponseEntityImJsonFormat() throws Exception {
+        
+        RequestBuilder requestBuilder       = get("/rest1/datumUndZeitMitResponseEntityImJsonFormat");
+        ResultHandler  printHandler         = print();
+        ResultMatcher  httpStatus202Matcher = status().isAccepted(); // nicht 200, sondern 202.
+                                
+        ResultActions ra1 = _mock.perform( requestBuilder ).andDo( printHandler ).andExpect( httpStatus202Matcher );
+        
+        ResultMatcher serverHeaderMatcher = header().string("Server"       , "Spring Boot RestController");
+        ResultMatcher cacheHeaderMatcher  = header().string("Cache-Control", "no-cache"                  );
+        
+        ra1.andExpect(serverHeaderMatcher).andExpect(cacheHeaderMatcher).andReturn();
+        
+        
+        // Calling again to also cover other branch for "if (_jacksonSerializer == null) {..."
+        _mock.perform( requestBuilder ).andDo( printHandler ).andExpect( httpStatus202Matcher );
     }
 
 }

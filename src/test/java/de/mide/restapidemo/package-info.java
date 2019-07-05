@@ -1,13 +1,12 @@
 /**
- * Unit-Tests für die REST-Methoden. Die Klassen mit den Unit-Test-Methoden müssen
- * mit {@code @SpringBootTest} annotiert werden, und jede der Test-Methoden mit
- * {@code @Test}.
+ * Unit-Tests für die REST-Methoden und einige Hilfsmethoden. Die Klassen mit den Unit-Test-Methoden 
+ * müssen mit {@code @SpringBootTest} annotiert werden, und jede der Test-Methoden mit {@code @Test}. 
  * <br><br>
  *
- * Damit die JavaDoc-Dateien für die Unit-Tests erzeugt werden, muss der Befehl
- * {@code mvn javadoc:test-javadoc} ausgeführt werden. Die Doku wird dann in
- * das Verzeichnis {@code target/site/testapidocs} geschrieben.
+ * Damit die JavaDoc-Dateien für die Unit-Tests erzeugt werden, muss der Befehl {@code mvn javadoc:test-javadoc}
+ * ausgeführt werden. Die Doku wird dann in das Verzeichnis {@code target/site/testapidocs} geschrieben. 
  * <br><br> 
+ * 
  * Doku zum Unit-Testen von Spring-REST-Methoden, siehe auch
  * <a href="https://spring.io/guides/gs/testing-web/" target="_blank">diesen Guide auf <i>spring.io</i></a>.
  * <br><br>
@@ -25,7 +24,7 @@
  * Die Testklassen müssen mit {@code @RunWith(SpringRunner.class)} annotiert werden, um eine Verbindung zwischen
  * JUnit und dem Spring-Boot-Testframework herzustellen. 
  * (<a href="https://www.baeldung.com/spring-boot-testing" target="_blank">Quelle</a>).
- * <br><br>
+ * <br><br>  
  * 
  * Unit-Tests werden vom 
  * <a href="https://maven.apache.org/surefire/maven-surefire-plugin/index.html" target="_blank">Surefire-Plugin</a>
@@ -41,8 +40,11 @@
  * ("Hamcrest" ist ein Anagramm des Wort "Matchers").
  * Siehe auch die <a href="http://hamcrest.org/JavaHamcrest/javadoc/1.3/" target="_blank">API-Doku von Hamcrest 1.3</a>
  * (in Ausgabe von Befehl {@code mvn dependency:tree} kann man sehen, welche Version von Hamcrest verwendet wird).
- * <br><br><br>
+ * <br><br>
  * 
+ * In der Datei {@code pom.xml} ist das <b>Plugin "jacoco"</b> konfiguriert, es werden bei Ausführung der Unit-Tests
+ * also auch <b>Reports zur Test-Coverage</b> erzeugt (siehe Verzeichnis {@code target/site/jacoco}).
+ * <br><br><br>
  * 
  * This project is licensed under the terms of the BSD 3-Clause License.
  */
