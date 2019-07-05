@@ -43,7 +43,7 @@
  * <br><br>
  * 
  * In der Datei {@code pom.xml} ist das <b>Plugin "jacoco"</b> konfiguriert, es werden bei Ausführung der Unit-Tests
- * also auch <b>Reports zur Test-Coverage</b> erzeugt (siehe Verzeichnis {@code target/site/jacoco}).
+ * also auch <b>Reports zur Test-Coverage</b> erzeugt (siehe Verzeichnis {@code target/site/jacoco/}).
  * <br><br><br>
  * 
  * This project is licensed under the terms of the BSD 3-Clause License.

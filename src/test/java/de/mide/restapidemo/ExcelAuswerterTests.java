@@ -19,7 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
  * Tests für Klasse {@link ExcelAuswerter}; diese Klasse testet also keine REST-Methode. 
  * <br><br>
  * 
- * Die als Test-Daten verwendeten Excel-Dateien befinden sich im Ordner {@code src/main/resources}. 
+ * Die als Test-Daten verwendeten Excel-Dateien befinden sich im Ordner {@code src/main/resources/}. 
  * Wenn in diesem Verzeichnis z.B. eine Datei mit Name {@code dateiname.xlsx} liegt,
  * dann kann der {@link InputStream} zum Einlesen dieser Datei mit dem folgenden Methodenaufruf 
  * abgefragt werden: {@code this.getClass().getResourceAsStream("dateiname.xlsx")}   
@@ -32,6 +32,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class ExcelAuswerterTests {
     
     /**
+     * Einstiegspfad für Suche nach Test-Dateien. Pfad muss mit Schrägstrich anfagen, damit die Dateien
+     * relativ zum Verzeichnis {@code src/main/resources/} gesucht werden.
+     */
+    private static final String PFAD_TESTDATEIEN = "/TestDateienFuerUnitTests/";
+    
+    
+    /**
      * Test für (Hilfs-)Methode {@link ExcelAuswerter#getWertZelleA1(InputStream)}:
      * In Zelle A1 steht ein String-Wert.
      * 
@@ -40,7 +47,7 @@ public class ExcelAuswerterTests {
     @Test    
     public void testHappyPathString() throws Exception {
                         
-        InputStream is = this.getClass().getResourceAsStream("/TestExcel_1_HappyPathString.xlsx");                
+        InputStream is = this.getClass().getResourceAsStream(PFAD_TESTDATEIEN + "TestExcel_1_HappyPathString.xlsx");                
         assertNotNull("Testdaten-Fehler: Excel-Datei nicht gefunden.", is);
         
         // Methode unter Test aufrufen
@@ -62,7 +69,7 @@ public class ExcelAuswerterTests {
     @Test    
     public void testHappyPathNumeric() throws Exception {
                         
-        InputStream is = this.getClass().getResourceAsStream("/TestExcel_2_HappyPathNumeric.xlsx");                
+        InputStream is = this.getClass().getResourceAsStream(PFAD_TESTDATEIEN + "TestExcel_2_HappyPathNumeric.xlsx");                
         assertNotNull("Testdaten-Fehler: Excel-Datei nicht gefunden.", is);
         
         // Methode unter Test aufrufen
@@ -83,7 +90,7 @@ public class ExcelAuswerterTests {
     @Test    
     public void testHappyPathFormel() throws Exception {
                         
-        InputStream is = this.getClass().getResourceAsStream("/TestExcel_3_HappyPathFormel.xlsx");                
+        InputStream is = this.getClass().getResourceAsStream(PFAD_TESTDATEIEN + "TestExcel_3_HappyPathFormel.xlsx");                
         assertNotNull("Testdaten-Fehler: Excel-Datei nicht gefunden.", is);
         
         // Methode unter Test aufrufen
@@ -106,7 +113,7 @@ public class ExcelAuswerterTests {
     @Test
     public void testZeileFehlt()  throws Exception {
 
-        InputStream is = this.getClass().getResourceAsStream("/TestExcel_4_ZeileFehlt.xlsx");                
+        InputStream is = this.getClass().getResourceAsStream(PFAD_TESTDATEIEN + "TestExcel_4_ZeileFehlt.xlsx");                
         assertNotNull("Testdaten-Fehler: Excel-Datei nicht gefunden.", is);
         
         // Methode unter Test aufrufen
@@ -127,7 +134,7 @@ public class ExcelAuswerterTests {
     @Test
     public void testZelleFehlt()  throws Exception {
         
-        InputStream is = this.getClass().getResourceAsStream("/TestExcel_5_ZelleFehlt.xlsx");                
+        InputStream is = this.getClass().getResourceAsStream(PFAD_TESTDATEIEN + "TestExcel_5_ZelleFehlt.xlsx");                
         assertNotNull("Testdaten-Fehler: Excel-Datei nicht gefunden.", is);       
         
         // Methode unter Test aufrufen
