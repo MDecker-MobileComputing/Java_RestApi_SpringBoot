@@ -2,7 +2,7 @@ package de.mide.restapidemo;
 
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertNotNull;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
@@ -78,7 +78,7 @@ public class PostRequestRestControllerTests {
                 
         MockMultipartFile mockFile = new MockMultipartFile("datei", dateiName, null, is);
         
-        RequestBuilder requestBuilder = fileUpload("/rest3/dateiHochladen").file(mockFile).contentType(MediaType.MULTIPART_FORM_DATA);
+        RequestBuilder requestBuilder = multipart("/rest3/dateiHochladen").file(mockFile).contentType(MediaType.MULTIPART_FORM_DATA);
                 
         ResultActions ra1 = _mock.perform( requestBuilder ).andExpect( HilfsklasseFuerTests.MATCHER_HTTP_STATUS_200 ).andDo( HilfsklasseFuerTests.RESULT_HANDLER_PRINT );
         
