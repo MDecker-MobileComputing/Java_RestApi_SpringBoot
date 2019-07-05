@@ -34,7 +34,7 @@ public class ExcelAuswerterTests {
      * Einstiegspfad für Suche nach Test-Dateien. Pfad muss mit Schrägstrich anfagen, damit die Dateien
      * relativ zum Verzeichnis {@code src/main/resources/} gesucht werden.
      */
-    private static final String PFAD_TESTDATEIEN = "/TestDateienFuerUnitTests/";
+    public static final String PFAD_TESTDATEIEN = "/TestDateienFuerUnitTests/";
 
 
     /**
