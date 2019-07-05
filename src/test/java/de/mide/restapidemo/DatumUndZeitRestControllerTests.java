@@ -5,10 +5,8 @@ import static org.hamcrest.core.StringEndsWith.endsWith;
 import static org.hamcrest.core.StringStartsWith.startsWith;
 import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +18,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.ResultHandler;
 import org.springframework.test.web.servlet.ResultMatcher;
 
 
@@ -68,11 +65,9 @@ public class DatumUndZeitRestControllerTests {
     @Test
     public void testDatumUndZeitAlsString() throws Exception {
 
-        RequestBuilder requestBuilder       = get("/rest1/datumUndZeitAlsString");
-        ResultHandler  printHandler         = print();
-        ResultMatcher  httpStatus200Matcher = status().isOk();
+        RequestBuilder requestBuilder = get("/rest1/datumUndZeitAlsString");
 
-        MvcResult mvcResult = _mock.perform( requestBuilder ).andDo( printHandler ).andExpect( httpStatus200Matcher ).andReturn();
+        MvcResult mvcResult = _mock.perform( requestBuilder ).andDo( HilfsklasseFuerTests.RESULT_HANDLER_PRINT ).andExpect( HilfsklasseFuerTests.MATCHER_HTTP_STATUS_200 ).andReturn();
 
         String httpResponseAsString = mvcResult.getResponse().getContentAsString();
         int    httpResponseLaenge   = httpResponseAsString.trim().length();
@@ -90,11 +85,9 @@ public class DatumUndZeitRestControllerTests {
     @Test
     public void testDatumUndZeitAlsObjekt() throws Exception {
 
-        RequestBuilder requestBuilder       = get("/rest1/datumUndZeitAlsObjekt");
-        ResultHandler  printHandler         = print();
-        ResultMatcher  httpStatus200Matcher = status().isOk();
+        RequestBuilder requestBuilder = get("/rest1/datumUndZeitAlsObjekt");
 
-        ResultActions ra1 = _mock.perform( requestBuilder ).andDo( printHandler ).andExpect( httpStatus200Matcher );
+        ResultActions ra1 = _mock.perform( requestBuilder ).andDo( HilfsklasseFuerTests.RESULT_HANDLER_PRINT ).andExpect( HilfsklasseFuerTests.MATCHER_HTTP_STATUS_200 );
 
 
         ResultMatcher jsonAnfangMatcher = content().string( startsWith("{") );
@@ -119,11 +112,9 @@ public class DatumUndZeitRestControllerTests {
     @Test
     public void testDatumUndZeitMitResponseEntity() throws Exception {
 
-        RequestBuilder requestBuilder       = get("/rest1/datumUndZeitMitResponseEntity");
-        ResultHandler  printHandler         = print();
-        ResultMatcher  httpStatus202Matcher = status().isAccepted(); // nicht 200, sondern 202.
+        RequestBuilder requestBuilder = get("/rest1/datumUndZeitMitResponseEntity");
 
-        ResultActions ra1 = _mock.perform( requestBuilder ).andDo( printHandler ).andExpect( httpStatus202Matcher );
+        ResultActions ra1 = _mock.perform( requestBuilder ).andDo( HilfsklasseFuerTests.RESULT_HANDLER_PRINT ).andExpect( HilfsklasseFuerTests.MATCHER_HTTP_STATUS_202 );
 
         ResultMatcher serverHeaderMatcher = header().string("Server"       , "Spring Boot RestController");
         ResultMatcher cacheHeaderMatcher  = header().string("Cache-Control", "no-cache"                  );
@@ -145,11 +136,9 @@ public class DatumUndZeitRestControllerTests {
     @Test
     public void testDatumUndZeitMitResponseEntityImJsonFormat() throws Exception {
 
-        RequestBuilder requestBuilder       = get("/rest1/datumUndZeitMitResponseEntityImJsonFormat");
-        ResultHandler  printHandler         = print();
-        ResultMatcher  httpStatus202Matcher = status().isAccepted(); // nicht 200, sondern 202.
+        RequestBuilder requestBuilder = get("/rest1/datumUndZeitMitResponseEntityImJsonFormat");
 
-        ResultActions ra1 = _mock.perform( requestBuilder ).andDo( printHandler ).andExpect( httpStatus202Matcher );
+        ResultActions ra1 = _mock.perform( requestBuilder ).andDo( HilfsklasseFuerTests.RESULT_HANDLER_PRINT ).andExpect( HilfsklasseFuerTests.MATCHER_HTTP_STATUS_202 );
 
         ResultMatcher serverHeaderMatcher = header().string("Server"       , "Spring Boot RestController");
         ResultMatcher cacheHeaderMatcher  = header().string("Cache-Control", "no-cache"                  );
@@ -157,8 +146,8 @@ public class DatumUndZeitRestControllerTests {
         ra1.andExpect(serverHeaderMatcher).andExpect(cacheHeaderMatcher).andReturn();
 
 
-        // Calling again to also cover other branch for "if (_jacksonSerializer == null) {..."
-        _mock.perform( requestBuilder ).andDo( printHandler ).andExpect( httpStatus202Matcher );
+        // Calling again to also cover other branch of "if (_jacksonSerializer == null) {..."
+        _mock.perform( requestBuilder ).andExpect( HilfsklasseFuerTests.MATCHER_HTTP_STATUS_202 );
     }
 
 }

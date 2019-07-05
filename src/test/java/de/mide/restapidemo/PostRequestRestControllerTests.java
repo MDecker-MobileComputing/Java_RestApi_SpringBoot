@@ -1,5 +1,14 @@
 package de.mide.restapidemo;
 
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
+
+import java.io.InputStream;
+
 import org.apache.poi.util.IOUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,22 +16,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.ResultHandler;
 import org.springframework.test.web.servlet.ResultMatcher;
-
-import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.io.InputStream;
 
 
 /**
@@ -45,12 +44,6 @@ public class PostRequestRestControllerTests {
     @Autowired
     private MockMvc _mock;
     
-    /** Matcher für HTTP-Status-Code "200" (OK). */
-    private static final ResultMatcher MATCHER_HTTP_STATUS_200 = status().isOk();
-    
-    /** ResultHandler um HTTP-Request auf die Konsole zu schreiben. */
-    private static final ResultHandler RESULT_HANDLER_PRINT = print(); 
-
 
     /**
      * Test-Methode für die REST-Methode {@code /rest3/datenViaPostRequestEmpfangen} via POST-Request.
@@ -64,7 +57,7 @@ public class PostRequestRestControllerTests {
 
         RequestBuilder requestBuilder = post("/rest3/datenViaPostRequestEmpfangen").contentType(MediaType.TEXT_PLAIN).content(textPayload);
 
-        ResultActions ra1 = _mock.perform( requestBuilder ).andDo( RESULT_HANDLER_PRINT ).andExpect( MATCHER_HTTP_STATUS_200 );
+        ResultActions ra1 = _mock.perform( requestBuilder ).andDo( HilfsklasseFuerTests.RESULT_HANDLER_PRINT ).andExpect( HilfsklasseFuerTests.MATCHER_HTTP_STATUS_200 );
 
         ResultMatcher responseMatcher = content().string( equalTo("Daten (11 Zeichen) empfangen.") );
         ra1.andExpect(responseMatcher);        
@@ -79,18 +72,23 @@ public class PostRequestRestControllerTests {
      */
     @Test
     public void testDateiHochladen() throws Exception {
+    	
+    	final String dateiName = "TestExcel_1_HappyPathString.xlsx";
         
-        InputStream is = this.getClass().getResourceAsStream(ExcelAuswerterTests.PFAD_TESTDATEIEN + "TestExcel_1_HappyPathString.xlsx");
-        assertNotNull("Testdaten-Fehler: Excel-Datei nicht gefunden.", is);        
+        InputStream is = this.getClass().getResourceAsStream(HilfsklasseFuerTests.PFAD_TESTDATEIEN + dateiName);
+        assertNotNull("Testdaten-Fehler: Excel-Datei nicht gefunden.", is);
+                
+       MockMultipartFile mockFile = new MockMultipartFile("datei", dateiName, null, is);
         
-
-        byte[] xlsxByteArray = IOUtils.toByteArray(is); // kann IOException werfen
+        RequestBuilder requestBuilder = fileUpload("/rest3/dateiHochladen").file(mockFile).contentType(MediaType.MULTIPART_FORM_DATA);
         
-        assertTrue("Umwandlung von InputStream in byte[] hat nicht geklappt.", xlsxByteArray.length > 0);
+        //RequestBuilder requestBuilder = post("/rest3/dateiHochladen").contentType(MediaType.MULTIPART_FORM_DATA_VALUE).content(xlsxByteArray);
         
-        RequestBuilder requestBuilder = post("/rest3/dateiHochladen").contentType(MediaType.MULTIPART_FORM_DATA).content(xlsxByteArray);
+        ResultActions ra1 = _mock.perform( requestBuilder ).andExpect( HilfsklasseFuerTests.MATCHER_HTTP_STATUS_200 ).andDo( HilfsklasseFuerTests.RESULT_HANDLER_PRINT );
         
-        /* ResultActions ra1 = */ _mock.perform( requestBuilder ).andExpect( MATCHER_HTTP_STATUS_200 );                       
+        
+        ResultMatcher responseMatcher = content().string( equalTo("String in Zelle A1: \"abc def\"") );
+        ra1.andExpect(responseMatcher);
     }
 
 }

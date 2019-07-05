@@ -60,6 +60,7 @@
             </plugin>
 
             <!-- Bei Aufruf von "mvn test" werden in target/site/jacoco Coverage-Reports abgelegt, siehe auch https://stackoverflow.com/a/43349327 -->
+            <!-- 
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -79,6 +80,7 @@
                     </execution>
                 </executions>
             </plugin>
+            -->
 
         </plugins>
 

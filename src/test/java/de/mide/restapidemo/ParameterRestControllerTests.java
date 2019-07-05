@@ -2,7 +2,6 @@ package de.mide.restapidemo;
 
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -15,7 +14,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.ResultHandler;
 import org.springframework.test.web.servlet.ResultMatcher;
 
 
@@ -48,11 +46,9 @@ public class ParameterRestControllerTests {
     @Test
     public void testAddieren() throws Exception {
 
-        RequestBuilder requestBuilder       = get("/rest2/addieren?zahl1=10&zahl2=20"); // 10 + 20 = 30
-        ResultHandler  printHandler         = print();
-        ResultMatcher  httpStatus200Matcher = status().isOk();
+        RequestBuilder requestBuilder = get("/rest2/addieren?zahl1=10&zahl2=20"); // 10 + 20 = 30
 
-        ResultActions ra1 = _mock.perform( requestBuilder ).andDo( printHandler ).andExpect( httpStatus200Matcher );
+        ResultActions ra1 = _mock.perform( requestBuilder ).andDo( HilfsklasseFuerTests.RESULT_HANDLER_PRINT ).andExpect( HilfsklasseFuerTests.MATCHER_HTTP_STATUS_200 );
 
         ResultMatcher responseMatcher = content().string( equalTo("Summe=30") );
         ra1.andExpect(responseMatcher);
@@ -69,10 +65,9 @@ public class ParameterRestControllerTests {
     public void testAddierenFehler() throws Exception {
 
         RequestBuilder requestBuilder       = get("/rest2/addieren?zahl1=10&zahl2=xyz");
-        ResultHandler  printHandler         = print();
         ResultMatcher  httpStatus400Matcher = status().isBadRequest(); // 400
 
-        _mock.perform( requestBuilder ).andDo( printHandler ).andExpect( httpStatus400Matcher );
+        _mock.perform( requestBuilder ).andDo( HilfsklasseFuerTests.RESULT_HANDLER_PRINT ).andExpect( httpStatus400Matcher );
     }
 
 
@@ -85,11 +80,9 @@ public class ParameterRestControllerTests {
     @Test
     public void testSubtrahieren() throws Exception {
 
-        RequestBuilder requestBuilder       = get("/rest2/subtrahieren/100/minus/20"); // 100 - 20 = 80
-        ResultHandler  printHandler         = print();
-        ResultMatcher  httpStatus200Matcher = status().isOk();
+        RequestBuilder requestBuilder = get("/rest2/subtrahieren/100/minus/20"); // 100 - 20 = 80
 
-        ResultActions ra1 = _mock.perform( requestBuilder ).andDo( printHandler ).andExpect( httpStatus200Matcher );
+        ResultActions ra1 = _mock.perform( requestBuilder ).andDo( HilfsklasseFuerTests.RESULT_HANDLER_PRINT ).andExpect( HilfsklasseFuerTests.MATCHER_HTTP_STATUS_200 );
 
         ResultMatcher responseMatcher = content().string( equalTo("Differenz=80") );
         ra1.andExpect(responseMatcher);
