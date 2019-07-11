@@ -12,6 +12,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class RestdemoApplicationMain {
 
+    /**
+     * Einstiegs-Methode.
+     * 
+     * @param args  Kommando-Zeilen-Argumente, werden einfach an Spring Boot durchgereicht.
+     */
 	public static void main(String[] args) {
 	    
 		SpringApplication.run(RestdemoApplicationMain.class, args);

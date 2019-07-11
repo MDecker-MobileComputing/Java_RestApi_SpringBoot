@@ -33,8 +33,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 @RestController
 @RequestMapping(value = "/rest1")
 public class DatumUndZeitRestController {
-    
-    
+
     /** Log-Objekt, auf das nur Methoden aus dieser Klasse schreiben dürfen. */
     private static final Logger LOGGER = LoggerFactory.getLogger( DatumUndZeitRestController.class );
 
