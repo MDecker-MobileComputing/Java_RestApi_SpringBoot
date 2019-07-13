@@ -64,7 +64,7 @@ public class PostRequestRestControllerTests {
     
     /**
      * Test-Methode für die REST-Methode {@code /rest3/dateiHochladen} via POST-Request (lädt echte Binär-Datei hoch).
-     * Diese Methode verwendet <b>nicht</b> {@link #RESULT_HANDLER_PRINT}, weil sonst eine Binär-Datei auf die Konsole geschrieben würde. 
+     * Diese Methode verwendet <b>nicht</b> {@link HilfsklasseFuerTests#RESULT_HANDLER_PRINT}, weil sonst eine Binär-Datei auf die Konsole geschrieben würde. 
      * 
      * @throws Exception  Fehler beim Testen aufgetreten
      */
