@@ -16,6 +16,10 @@ LABEL maintainer="MDecker-MobileComputing"
 RUN mkdir -p /home/restapidemo
 # -p: Kein Fehler wenn Verzeichnis schon existiert
 
+# Paket installieren (hier nur ein Texteditor, der bei Verbindungen mit "docker exec -it ..." verwendet werden kann)
+# "apk" ist der Paket-Manager der Linux Distribution "Alpine Linux", auf der unser Image aufbaut.
+RUN apk add joe
+
 # Arbeitsverzeichnis für Befehle RUN, CMD, ENTRYPOINT, COPY und ADD
 WORKDIR /home/restapidemo
 
