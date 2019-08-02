@@ -1,7 +1,7 @@
 # Diese Datei enthält die Beschreibung für "docker build", um ein
 # Image mit der REST-API-Demo-App zu erstellen.
 #
-# Befehl zum Erzeugen des Image: docker build -t RestApiMitSpringBoot .
+# Erzeugen des Image: docker_build.sh
 #
 # See also https://spring.io/guides/gs/spring-boot-docker/
 
