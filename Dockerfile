@@ -3,7 +3,9 @@
 #
 # Erzeugen des Image: docker_build.sh
 #
-# See also https://spring.io/guides/gs/spring-boot-docker/
+# Siehe auch:
+#   https://spring.io/guides/gs/spring-boot-docker/
+#   https://www.baeldung.com/dockerizing-spring-boot-application
 
 # Base image: "Alpine Linux" & OpenJKD
 FROM openjdk:8-jdk-alpine
@@ -16,9 +18,10 @@ COPY ./Dockerfile .
 # Fat Jar mit SpringBoot-Applikation
 COPY ./target/restapidemo-0.0.1-SNAPSHOT.jar .
 
-# Port nach aussen freigaben
-EXPOSE 8080
-
 # Start der SpringBoot-App
-CMD java -jar restapidemo-0.0.1-SNAPSHOT.jar
+#CMD java -jar restapidemo-0.0.1-SNAPSHOT.jar
+ENTRYPOINT ["java","-jar","restapidemo-0.0.1-SNAPSHOT.jar"]
+
+# Port nach aussen freigeben
+EXPOSE 8080
 
