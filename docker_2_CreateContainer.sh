@@ -15,3 +15,4 @@ docker container list --all
 # --all: auch nicht laufende Container anzeigen
 # alter Befehl: docker ps --all
 
+echo
