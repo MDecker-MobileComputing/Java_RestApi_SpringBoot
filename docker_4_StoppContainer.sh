@@ -13,3 +13,6 @@ docker container list
 # Um einen laufenden Container neu zu starten:
 # docker restart restapidemo_container
 
+echo
+
+
