@@ -34,6 +34,6 @@ COPY ./target/restapidemo-0.0.1-SNAPSHOT.jar .
 #CMD java -jar restapidemo-0.0.1-SNAPSHOT.jar
 ENTRYPOINT ["java","-jar","restapidemo-0.0.1-SNAPSHOT.jar"]
 
-# Port nach aussen freigeben -> funktioniert nicht?!?
+# Port nach aussen freigeben
 EXPOSE 8080
 
