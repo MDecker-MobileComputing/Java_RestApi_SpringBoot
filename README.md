@@ -1,4 +1,6 @@
-# Rest-API with Spring Boot
+# Rest-API with Spring Boot #
+
+<br>
 
 This repository contains a small [Spring Boot](https://spring.io/projects/spring-boot) application that shows how to implement a basic REST API.
 
@@ -8,13 +10,15 @@ Additional information concerning this application can be found on [the Wiki pag
 
 <br>
 
-See [this repository](https://github.com/MDecker-MobileComputing/Java_RestAPI_BmiBerechnung/) for another Java application that implements a REST API, but not with *Spring Boot*. 
+See [this repository](https://github.com/MDecker-MobileComputing/Java_RestAPI_BmiBerechnung/) for another Java application that implements a X?!e4MTptQREST API, but not with *Spring Boot*. 
 
 <br>
 
 ----
 
-# Running the application
+## Running the application ##
+
+<br>
 
 To start the application (i.e. to start the web server) you have several options:
 
@@ -41,15 +45,22 @@ on how to define a *Run Configuration* for running Maven goal `spring-boot:run` 
 
 ----
 
-# JavaDoc
+## JavaDoc ##
+
+<br>
 
 Execute script `maven_javadoc.bat` in Window's *cmd.exe*; the output files are written to folder `target/site/apidocs`.
 	 
 <br>
 
 ----
-# License
+
+## License ##
+
+<br>
 
 See the [LICENSE file](LICENSE.md) for license rights and limitations (BSD 3-Clause License).
 
 See libraries and frameworks used as dependencies (see file `pom.xml`) have their own licenses.
+
+<br>
